@@ -26,6 +26,6 @@ func disappear():
 	$Bar.queue_free()
 	$AnimationPlayer.play("Out")
 
-func _on_animation_finished(anim_name):
+func _on_animation_finished(_anim_name):
 	if get_node_or_null("Bar") == null:
 		queue_free()

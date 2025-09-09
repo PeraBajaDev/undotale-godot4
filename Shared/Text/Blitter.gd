@@ -16,7 +16,7 @@ func _ready():
 	next.connect(_on_next)
 	click_node.stream = click
 
-func _process(delta):
+func _process(_delta):
 	if skippable:
 		if Input.is_action_just_pressed("ui_accept") and !ongoing:
 			emit_signal("next")

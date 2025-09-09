@@ -82,7 +82,7 @@ func rows(paralist, reverse = false):
 	
 	return new_list
 
-func _process(delta):
+func _process(_delta):
 	if enabled:
 		input.x = int(Input.is_action_just_pressed("ui_right")) - int(Input.is_action_just_pressed("ui_left"))
 		input.y = (int(Input.is_action_just_pressed("ui_down")) - int(Input.is_action_just_pressed("ui_up")))

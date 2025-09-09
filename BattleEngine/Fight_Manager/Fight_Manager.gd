@@ -17,13 +17,13 @@ var children = []
 signal select
 signal cutscene_end
 
-func cutscene(arg): # ether: to be overloaded?
+func cutscene(_arg): # ether: to be overloaded?
 	pass
 
 func _ready():
 	cutscene_end.connect(get_selection) # connect("cutscene_end", Callable(self, "selection"))
 
-func _process(delta):
+func _process(_delta):
 	if enabled:
 		input = int(Input.is_action_just_pressed("ui_down")) - int(Input.is_action_just_pressed("ui_up"))
 		

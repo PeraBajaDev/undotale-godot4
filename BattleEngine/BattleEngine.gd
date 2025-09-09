@@ -26,7 +26,7 @@ func _ready():
 	$HUD/Name.text = Data.human
 	playersTurn()
 
-func _process(delta):
+func _process(_delta):
 	pass
 
 func playersTurn(reset_line = true):
@@ -89,7 +89,7 @@ func target():
 				return
 			
 			buttons.turn_off()
-			var get_act_string = selection.acting(acting.selection)
+			var _get_act_string = selection.acting(acting.selection)
 			
 		"Mercy":
 			buttons.turn_off()

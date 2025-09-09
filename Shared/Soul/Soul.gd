@@ -35,11 +35,11 @@ func changeMovement(value):
 		self.add_child(ghost_inst)
 	currentFunction = value
 
-func still(delta):
+func still(_delta):
 	set_velocity(Vector2.ZERO)
 	move_and_slide()
 
-func red(delta):
+func red(_delta):
 	modulate = Color(1,0,0,1)
 	inputList = [
 		int(Input.is_action_pressed("ui_right")),
@@ -53,7 +53,7 @@ func red(delta):
 	set_velocity(motion)
 	move_and_slide()
 
-func blue(delta):
+func blue(_delta):
 	modulate = Color(0,0,1,1)
 	inputList = [
 		int(Input.is_action_pressed("ui_right")),

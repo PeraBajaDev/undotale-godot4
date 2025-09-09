@@ -190,8 +190,6 @@ script = ExtResource("10")
 position = Vector2(316.967, 123.659)
 
 [node name="Box" parent="." instance=ExtResource("11")]
-layout_mode = 3
-anchors_preset = 0
 offset_left = 32.0
 offset_top = 250.0
 offset_right = 607.0
