@@ -1,12 +1,12 @@
-extends Fight_Manager
+extends FightManager
 
 # MAKE CUSTOM CUTSCENES AS YOU WISH
 
+var box
+var cutscene_counter = 0
+
 @onready
 var bone_tscn = preload("res://BattleEngine/Fight_Manager/Revenge Papyrus/Attacks/Bone.tscn")
-
-var cutscene_counter = 0
-var box
 
 
 func cutscene(varbox: Control):  #YOU CAN CHOOSE WHAT PARAMETERS TO PASS IN

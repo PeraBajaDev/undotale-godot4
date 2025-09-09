@@ -1,21 +1,20 @@
-class_name Fight_Manager
+class_name FightManager
 extends Node2D
 
+signal select
+signal cutscene_end
 var input
 var selection = 0
 
 var enabled = false  # was "enable"
 
-var possiblePositions = [285, 315, 350]
-var positionArray = []
+var possible_positions = [285, 315, 350]
+var position_array = []
 var soul
 
 var children = []
 
 #var cutscene = [] # ether: wasn't commented before
-
-signal select
-signal cutscene_end
 
 
 func cutscene(_arg):  # ether: to be overloaded?
@@ -37,7 +36,7 @@ func _process(_delta):
 			get_parent().get_node("Squeak").play()
 
 		selection = (selection + input) % children.size()
-		soul.position = Vector2(80, positionArray[selection])
+		soul.position = Vector2(80, position_array[selection])
 
 		if Input.is_action_just_pressed("ui_accept"):
 			self.enabled = false
@@ -54,7 +53,7 @@ func enable(_soul):
 		if !child.spared:
 			children.append(child)
 
-	positionArray = possiblePositions.slice(0, children.size() - 1)
+	position_array = possible_positions.slice(0, children.size() - 1)
 	self.soul = _soul
 	connect("select", Callable(self, "disable"))
 	await get_tree().create_timer(0.1).timeout
@@ -66,18 +65,19 @@ func disable():
 
 
 func string():
-	var _string = ""
+	var text = ""
 	for child in children:
 		var monster = "\t\t* " + child.NAME + "\n"
 		if child.spareable:
 			monster = "[color=yellow]" + monster + "[/color]"
-		_string += monster
-	return _string
+		text += monster
+	return text
 
 
 func get_selection():  # was "selection"
 	return children[selection]
 
 
-func _on_select():  # was "select". ether: idk what this does, and why nothing happens on select signal
+func _on_select():
+	# was "select". ether: idk what this does, and why nothing happens on select signal
 	pass

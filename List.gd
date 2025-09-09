@@ -1,24 +1,24 @@
 class_name List
 extends Node2D
 
+signal selected
+signal exit
+
 var list = []
 
 var selection = 0
 var input = Vector2.ZERO
 
-var enable = false
+var enabled = false
 var list_increase = Vector2.ZERO
-
-signal select
-signal exit
 
 
 func enable():
-	connect("select", Callable(self, "select"))
-	enable = true
+	selected.connect(on_selected)
+	enabled = true
 
 
-func _process(delta):
+func _process(_delta):
 	if enable:
 		input.x = (
 			(
@@ -38,14 +38,14 @@ func _process(delta):
 		selection = int(selection + input.x + input.y) % list.size()
 
 		if Input.is_action_just_pressed("ui_accept"):
-			emit_signal("select")
+			selected.emit()
 			disable()
 
 
 func disable():
-	disconnect("select", Callable(self, "select"))
-	enable = false
+	selected.disconnect(on_selected)
+	enabled = false
 
 
-func select():
+func on_selected():
 	return list[selection]

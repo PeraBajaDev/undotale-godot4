@@ -1,19 +1,19 @@
 extends Node2D
 
-@export var NAME = "Test Robert"
+signal done
+@export var monster_name = "Test Robert"
+@export var spareable = true
 
-var ATK = 10
-var DEF = 30
+var attack = 10
+var defense = 30
 
 var check_line = "He is just a test monster after all"
 var actings = ["Check", "Hey", "DidYouKnw", "ThatIdont", "knowhowto", "makeaMojito"]
 
-var HP = 100
-@export var spareable = true
+var health_points = 100
 var spared = false
 var store_amnt = 0
 
-signal done
 @onready var blitter = $Bubble/Blitter
 
 

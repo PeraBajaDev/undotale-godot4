@@ -1,15 +1,14 @@
 extends RichTextLabel
 
-@onready var click_node = $Click
+signal next
+@export var skippable = false
 
 var line = ["Test! One two three, one two three", [-1], [0.035, 0.5], false]
 var click = preload("res://Shared/Text/Clicks/Files/generic2.wav")
 
 var ongoing = false
-@export var skippable = false
 
-signal next
-
+@onready var click_node = $Click
 @onready var timer = $Timer
 
 
@@ -51,10 +50,10 @@ func feed(args = [""]):
 		visible_characters = len(line[0])
 		return
 
-	nextChar()
+	next_character()
 
 
-func nextChar():
+func next_character():
 	if visible_characters < len(line[0]):
 		visible_characters += 1
 		click_node.play()
@@ -69,4 +68,4 @@ func _on_next():
 
 
 func _on_text_timeout():
-	nextChar()
+	next_character()

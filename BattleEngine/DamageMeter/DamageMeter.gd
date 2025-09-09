@@ -1,9 +1,9 @@
 extends Node2D
 
-var stopped: bool = false
-
 signal slaughter
 signal enemys_turn
+
+var stopped: bool = false
 
 
 func _ready():

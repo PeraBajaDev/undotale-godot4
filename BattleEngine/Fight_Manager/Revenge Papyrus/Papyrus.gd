@@ -1,19 +1,19 @@
 extends Node2D
 
-@export var NAME = "Papyrus"
+signal done
+@export var monster_name = "Papyrus"
+@export var spareable = true
 
-var ATK = 10
-var DEF = 30
+var attack = 10
+var deffense = 30
 
 var check_line = "He is just a test monster after all"
 var actings = ["Check", "Hey", "DidYouKnw", "ThatIdont", "knowhowto", "makeaMojito"]
 
-var HP = 100
-@export var spareable = true
+var health_points = 100
 var spared = false
-var store_amnt = 0
+var store_amount = 0
 
-signal done
 @onready var blitter = $Bubble/Blitter
 
 
@@ -30,17 +30,17 @@ func spare():
 
 
 func shake(amount):
-	if store_amnt == 0:
-		store_amnt = (amount / 100.0) + 0.01
+	if store_amount == 0:
+		store_amount = (amount / 100.0) + 0.01
 	var offset_sign = (int($Sprite2D.position.x >= 0) * 2) - 1
 	$Sprite2D.position.x = -(amount * offset_sign)
 	amount -= 1
 	var test = amount / 100.0
-	await get_tree().create_timer(store_amnt - test).timeout
+	await get_tree().create_timer(store_amount - test).timeout
 	if amount != 0:
 		shake(amount)
 	else:
-		store_amnt = 0
+		store_amount = 0
 
 
 func acting():

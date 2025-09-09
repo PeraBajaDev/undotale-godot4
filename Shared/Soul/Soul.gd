@@ -1,8 +1,6 @@
 extends CharacterBody2D
 
-@onready var ghost = preload("res://Shared/Soul/Ghost.tscn")
-
-@export var currentFunction: String  # (String, "", "red", "blue")
+@export var current_function: String  # (String, "", "red", "blue")
 
 var health = 48
 
@@ -12,31 +10,33 @@ var gravity = 3
 
 var jump = Vector2(40, 240)
 
-var inputList := [0, 0, 0, 0]
+var input_list := [0, 0, 0, 0]
 var input := Vector2.ZERO
 
 var floor_rotation = 0.0
 
 var main_scene
 
+@onready var ghost = preload("res://Shared/Soul/Ghost.tscn")
+
 
 func _ready():
 	main_scene = owner
 	modulate = Color(1, 0, 0, 1)
-	changeMovement(currentFunction)
+	change_movement(current_function)
 
 
 func _physics_process(delta):
-	if currentFunction:
-		call(currentFunction, delta)
+	if current_function:
+		call(current_function, delta)
 
 
-func changeMovement(value):
+func change_movement(value):
 	var negate = ["", "still"]
-	if !(currentFunction in negate) and !(value in negate):
+	if !(current_function in negate) and !(value in negate):
 		var ghost_inst = ghost.instantiate()
 		self.add_child(ghost_inst)
-	currentFunction = value
+	current_function = value
 
 
 func still(_delta):
@@ -46,14 +46,14 @@ func still(_delta):
 
 func red(_delta):
 	modulate = Color(1, 0, 0, 1)
-	inputList = [
+	input_list = [
 		int(Input.is_action_pressed("ui_right")),
 		int(Input.is_action_pressed("ui_left")),
 		int(Input.is_action_pressed("ui_down")),
 		int(Input.is_action_pressed("ui_up")),
 	]
-	input.x = inputList[0] - inputList[1]
-	input.y = inputList[2] - inputList[3]
+	input.x = input_list[0] - input_list[1]
+	input.y = input_list[2] - input_list[3]
 	motion = speed * input
 	set_velocity(motion)
 	move_and_slide()
@@ -61,23 +61,23 @@ func red(_delta):
 
 func blue(_delta):
 	modulate = Color(0, 0, 1, 1)
-	inputList = [
+	input_list = [
 		int(Input.is_action_pressed("ui_right")),
 		int(Input.is_action_pressed("ui_left")),
 		int(Input.is_action_pressed("ui_up")),
 	]
 	if not is_on_floor():
 		motion.y += gravity * 2
-	input.x = inputList[0] - inputList[1]
-	input.y = inputList[2]
+	input.x = input_list[0] - input_list[1]
+	input.y = input_list[2]
 	motion.x = speed * input.x
 
 	if is_on_floor():
 		motion.y = 0
-		if inputList[2]:
+		if input_list[2]:
 			motion.y = -jump.y
 	else:
-		if not inputList[2] and motion.y < -jump.x:
+		if not input_list[2] and motion.y < -jump.x:
 			motion.y = -jump.x
 
 	if is_on_ceiling() and motion.y < -jump.x:

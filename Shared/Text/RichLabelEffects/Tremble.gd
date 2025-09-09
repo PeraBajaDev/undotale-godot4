@@ -1,6 +1,6 @@
 @tool
+class_name RichTextTrembles
 extends RichTextEffect
-class_name RichTextTremble
 
 var bbcode = "tremble"
 
@@ -11,9 +11,9 @@ func _process_custom_fx(char_fx):
 
 	randomize()
 
-	var randomBool = bool(randi() % 101 < chance)
-	var randomVector = Vector2(randf_range(-freq, freq), randf_range(-freq, freq))
+	var random_bool = bool(randi() % 101 < chance)
+	var random_vector = Vector2(randf_range(-freq, freq), randf_range(-freq, freq))
 
-	if randomBool:
-		char_fx.offset = randomVector
+	if random_bool:
+		char_fx.offset = random_vector
 	return true

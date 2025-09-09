@@ -1,11 +1,12 @@
 extends Node2D
 
+signal select
 var input = Vector2.ZERO
 var selection = 0
 
 var enabled = false  # was "enable"
 
-var positionArray = [
+var positions = [
 	Vector2(80, 285),
 	Vector2(320, 285),
 	Vector2(80, 315),
@@ -16,8 +17,6 @@ var positionArray = [
 var soul
 
 var list = []
-
-signal select
 
 
 func enable(_soul):
@@ -46,7 +45,7 @@ func _process(_delta):
 
 		selection = int(selection + input.x + input.y) % list.size()
 
-		soul.position = positionArray[selection]
+		soul.position = positions[selection]
 
 		if Input.is_action_just_pressed("ui_accept"):
 			self.enabled = false
@@ -58,16 +57,16 @@ func _process(_delta):
 
 
 func string():
-	var _string = ""
+	var text = ""
 	for index in range(list.size()):
 		var option = list[index]
 		if index % 2 == 1:
 			for spaces in range(14 - len(list[index - 1])):
-				_string += " "
-			_string += "* " + option + "\n"
+				text += " "
+			text += "* " + option + "\n"
 		else:
-			_string += "\t\t* " + option
-	return _string
+			text += "\t\t* " + option
+	return text
 
 
 func disable():

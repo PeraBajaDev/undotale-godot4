@@ -1,5 +1,11 @@
 extends Node2D
 
+signal shake_camera
+
+var selection
+var function
+var store_amnt = 0
+var random = [-1, 1]
 @onready var Attacker = preload("res://BattleEngine/DamageMeter/DamageMeter.tscn")
 @onready var Slice = preload("res://BattleEngine/Weapon/Weapon.tscn")
 @onready var Damage = preload("res://BattleEngine/DamageMeter/Text/Damage.tscn")
@@ -15,24 +21,19 @@ extends Node2D
 @onready var acting = $ActingSelector
 @onready var items = $ItemSelector
 
-var selection
-var function
-
-signal shake_camera
-
 
 func _ready():
 	shake_camera.connect(_on_shake_camera)  # connect("shake_camera", Callable(self, "shake_camera"))
 	$Music.play(10)
 	$HUD/Name.text = Data.human
-	playersTurn()
+	players_turn()
 
 
 func _process(_delta):
 	pass
 
 
-func playersTurn(reset_line = true):
+func players_turn(reset_line = true):
 	if reset_line:
 		blitter.feed(["* You feel puzzled.", [22], null, false])
 	buttons.enable(soul)
@@ -45,13 +46,13 @@ func playersTurn(reset_line = true):
 			target()
 		"Item":
 			if Data.items.is_empty():
-				playersTurn(false)
+				players_turn(false)
 				return
 			items.enable(soul, blitter)
 			await items.select
 			if items.enabled:
 				items.enabled = false
-				playersTurn()
+				players_turn()
 				return
 
 
@@ -63,7 +64,7 @@ func target():
 
 	if enemies.enable:
 		enemies.enable = false
-		playersTurn()
+		players_turn()
 		return
 
 	match function:
@@ -74,7 +75,7 @@ func target():
 			var attacker = Attacker.instantiate()
 			attacker.position = box.position + (box.size / 2)
 			attacker.connect("slaughter", Callable(self, "slay"))
-			attacker.connect("enemys_turn", Callable(self, "enemysTurn"))
+			attacker.connect("enemys_turn", Callable(self, "enemys_turn"))
 
 			blitter.feed()
 
@@ -93,14 +94,14 @@ func target():
 				return
 
 			buttons.turn_off()
-			var _get_act_string = selection.acting(acting.selection)
+			# var get_act_string = selection.acting(acting.selection)
 
 		"Mercy":
 			buttons.turn_off()
 			if selection.spareable:
 				selection.spare()
 			blitter.feed(["", null, null, true])
-			enemysTurn()
+			enemys_turn()
 
 
 func slay():
@@ -119,7 +120,7 @@ func slay():
 	print(damage.rotation)
 
 
-func enemysTurn():
+func enemys_turn():
 	enemies.cutscene(box)
 	await enemies.cutscene_end
 
@@ -127,11 +128,7 @@ func enemysTurn():
 	await enemies.cutscene_end
 
 	soul.changeMovement("")
-	playersTurn()
-
-
-var store_amnt = 0
-var random = [-1, 1]
+	players_turn()
 
 
 func _on_shake_camera(amount = 5):

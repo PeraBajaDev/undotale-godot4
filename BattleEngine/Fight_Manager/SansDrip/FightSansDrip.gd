@@ -1,4 +1,4 @@
-extends Fight_Manager
+extends FightManager
 
 # MAKE CUSTOM CUTSCENES AS YOU WISH
 var cutscene_counter = 0
