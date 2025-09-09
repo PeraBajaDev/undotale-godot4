@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=4 uid="uid://uhpmd8ol7v03"]
 
 [ext_resource type="Texture2D" uid="uid://boqwluiw8ebk5" path="res://Shared/Box/box.png" id="1"]
-[ext_resource type="PackedScene" path="res://Shared/Text/Blitter.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://b6gxt5ssic4v5" path="res://Shared/Text/Blitter.tscn" id="2"]
 [ext_resource type="Script" uid="uid://diqnwnjfrbtdg" path="res://Shared/Box/Box.gd" id="3"]
 
 [sub_resource type="Image" id="Image_dw05a"]
@@ -140,23 +140,3 @@ shape = SubResource("3")
 [node name="Right" type="CollisionShape2D" parent="Collisions"]
 position = Vector2(442, 0)
 shape = SubResource("3")
-
-[node name="Resize" type="Tween" parent="."]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
-script = null
-
-[node name="Positioning" type="Tween" parent="."]
-_import_path = NodePath("")
-unique_name_in_owner = false
-process_mode = 0
-process_priority = 0
-process_physics_priority = 0
-process_thread_group = 0
-editor_description = ""
-script = null

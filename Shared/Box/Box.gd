@@ -3,8 +3,8 @@ extends Control
 @export var border = 5
 
 @onready var attacks = $Attacks
-@onready var resize_tween = $Resize
-@onready var pos_tween = $Positioning
+@onready var resize_tween = get_tree().create_tween()
+@onready var pos_tween = get_tree().create_tween()
 @onready var shapes = $Collisions
 
 func _ready():
