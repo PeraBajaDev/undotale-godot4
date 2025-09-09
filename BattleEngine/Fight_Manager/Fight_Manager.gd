@@ -4,9 +4,9 @@ extends Node2D
 var input
 var selection = 0
 
-var enabled = false # was "enable"
+var enabled = false  # was "enable"
 
-var possiblePositions = [285,315,350]
+var possiblePositions = [285, 315, 350]
 var positionArray = []
 var soul
 
@@ -17,29 +17,36 @@ var children = []
 signal select
 signal cutscene_end
 
-func cutscene(_arg): # ether: to be overloaded?
+
+func cutscene(_arg):  # ether: to be overloaded?
 	pass
 
+
 func _ready():
-	cutscene_end.connect(get_selection) # connect("cutscene_end", Callable(self, "selection"))
+	cutscene_end.connect(get_selection)  # connect("cutscene_end", Callable(self, "selection"))
+
 
 func _process(_delta):
 	if enabled:
-		input = int(Input.is_action_just_pressed("ui_down")) - int(Input.is_action_just_pressed("ui_up"))
-		
+		input = (
+			int(Input.is_action_just_pressed("ui_down"))
+			- int(Input.is_action_just_pressed("ui_up"))
+		)
+
 		if input:
 			get_parent().get_node("Squeak").play()
-		
+
 		selection = (selection + input) % children.size()
 		soul.position = Vector2(80, positionArray[selection])
-		
+
 		if Input.is_action_just_pressed("ui_accept"):
 			self.enabled = false
 			get_parent().get_node("Select").play()
-			select.emit() # emit_signal("select")
+			select.emit()  # emit_signal("select")
 		elif Input.is_action_just_pressed("ui_cancel"):
 			get_parent().get_node("Squeak").play()
-			select.emit() # emit_signal("select")
+			select.emit()  # emit_signal("select")
+
 
 func enable(_soul):
 	children.clear()
@@ -53,8 +60,10 @@ func enable(_soul):
 	await get_tree().create_timer(0.1).timeout
 	self.enabled = true
 
+
 func disable():
 	disconnect("select", Callable(self, "disable"))
+
 
 func string():
 	var _string = ""
@@ -65,8 +74,10 @@ func string():
 		_string += monster
 	return _string
 
-func get_selection(): # was "selection"
+
+func get_selection():  # was "selection"
 	return children[selection]
 
-func _on_select(): # was "select". ether: idk what this does, and why nothing happens on select signal
+
+func _on_select():  # was "select". ether: idk what this does, and why nothing happens on select signal
 	pass

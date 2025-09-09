@@ -12,9 +12,11 @@ signal next
 
 @onready var timer = $Timer
 
+
 func _ready():
 	next.connect(_on_next)
 	click_node.stream = click
+
 
 func _process(_delta):
 	if skippable:
@@ -23,32 +25,34 @@ func _process(_delta):
 		elif Input.is_action_just_pressed("ui_cancel") and ongoing:
 			freeze()
 
+
 func freeze():
 	timer.stop()
 	ongoing = false
 	visible_characters = len(line[0])
 
+
 func feed(args = [""]):
-	
 	ongoing = true
-	
+
 	timer.stop()
-	
+
 	for index in range(args.size()):
 		if args[index] != null:
 			line[index] = args[index]
 
 	text = ""
 	visible_characters = 0
-	
+
 	text = line[0]
 	await get_tree().create_timer(0.1).timeout
-	
+
 	if line[3]:
 		visible_characters = len(line[0])
 		return
 
 	nextChar()
+
 
 func nextChar():
 	if visible_characters < len(line[0]):
@@ -59,8 +63,10 @@ func nextChar():
 	else:
 		ongoing = false
 
+
 func _on_next():
 	visible_characters = 0
+
 
 func _on_text_timeout():
 	nextChar()
