@@ -1,0 +1,14 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://dumd7k330kv0k"]
+
+[ext_resource type="FontFile" uid="uid://kkk2rffgw4l0" path="res://Fonts/DTM-Mono.otf" id="1_7olnx"]
+[ext_resource type="Texture2D" uid="uid://boqwluiw8ebk5" path="res://Shared/Box/box.png" id="2_s1nn8"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r7c43"]
+texture = ExtResource("2_s1nn8")
+region_rect = Rect2(0, 0, 22, 22)
+
+[resource]
+default_font = ExtResource("1_7olnx")
+Button/fonts/font = ExtResource("1_7olnx")
+ColorPickerButton/styles/normal = SubResource("StyleBoxTexture_r7c43")
+Label/fonts/font = ExtResource("1_7olnx")

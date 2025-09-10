@@ -21,8 +21,8 @@ var list: Array = []
 @onready var select_sound: AudioStreamPlayer = %Select
 
 
-func enable(soul: SoulController) -> void:
-	self.soul = soul
+func enable(_soul: SoulController) -> void:
+	self.soul = _soul
 	connect("select", Callable(self, "disable"))
 	await get_tree().create_timer(0.1).timeout
 	self.enabled = true

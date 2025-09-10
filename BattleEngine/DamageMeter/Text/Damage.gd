@@ -7,7 +7,7 @@ extends Node2D
 
 func _ready() -> void:
 	if int(label.text) > 0:
-		label.set("theme_override_colors/font_color", Color(1, 0, 0, 1))
+		label.self_modulate = Color(1, 0, 0, 1)
 		audio.play()
 	position.x = -(label.size.x / 2.0) + global_position.x
 	animation.play("jump")

@@ -21,9 +21,9 @@ var list: Array[Array] = []
 @onready var select_sound: AudioStreamPlayer = %Select
 
 
-func enable(soul: SoulController, blitter: Blitter) -> void:
-	self.blitter = blitter
-	self.soul = soul
+func enable(_soul: SoulController, _blitter: Blitter) -> void:
+	self.blitter = _blitter
+	self.soul = _soul
 
 	list = rows(Data.items)
 	blitter.feed([string(), null, null, true])  # ether: should this be blitter or _blitter?

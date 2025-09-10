@@ -24,11 +24,11 @@ shape = SubResource("1")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_wlffj")
-maxHealth = 5
 metadata/_custom_type_script = "uid://ctmyj0dx5gdnv"
 
-[node name="HurtBoxComponent2" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_71p6e")]
-healthComponent = NodePath("../HealthComponent")
+[node name="HurtBoxComponent2" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_71p6e")]
+position = Vector2(2, 0)
+health_component = NodePath("../HealthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent2"]
 shape = SubResource("2")

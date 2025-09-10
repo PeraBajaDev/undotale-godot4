@@ -43,17 +43,17 @@ func _process(_delta: float) -> void:
 		if Input.is_action_just_pressed("ui_accept"):
 			self.enabled = false
 			select_sound.play()
-			select.emit()  # emit_signal("select")
+			select.emit()
 		elif Input.is_action_just_pressed("ui_cancel"):
 			squeak_sound.play()
-			select.emit()  # emit_signal("select")
+			select.emit()
 
 
 func enable(_soul: SoulController) -> void:
 	monsters.clear()
 	for child in get_children() as Array[Monster]:
 		if !child.spared:
-			monsters.append(child)
+			monsters.append(child.monster_name)
 
 	position_array = possible_positions.slice(0, monsters.size())
 	self.soul = _soul
@@ -76,10 +76,9 @@ func get_formated_name() -> String:
 	return formated_name
 
 
-func get_selection() -> Monster:  # was "selection"
+func get_selection() -> Monster:
 	return monsters[selection]
 
 
 func _on_select() -> void:
-	# was "select". ether: idk what this does, and why nothing happens on select signal
 	pass

@@ -18,6 +18,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Data="*res://savedata/Data.gd"
+DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 
 [debug]
 
@@ -27,6 +28,10 @@ gdscript/warnings/unsafe_method_access=2
 gdscript/warnings/unsafe_cast=2
 settings/fps/force_fps=30
 
+[dialogue_manager]
+
+runtime/balloon_path="res://BattleEngine/Bubble/balloon.tscn"
+
 [display]
 
 window/size/viewport_width=640
@@ -35,7 +40,7 @@ window/stretch/mode="2d"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/gdgdtoolkit/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg", "res://addons/gdgdtoolkit/plugin.cfg")
 
 [filesystem]
 
@@ -119,6 +124,10 @@ ui_end={
 "deadzone": 0.5,
 "events": []
 }
+
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://Dialogs/action_dialogs.dialogue")
 
 [layer_names]
 
