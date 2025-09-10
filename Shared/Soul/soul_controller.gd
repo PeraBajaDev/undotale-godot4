@@ -16,7 +16,7 @@ var floor_rotation: float = 0
 
 func _ready() -> void:
 	add_ability(GravityMovementAbility.new())
-	change_soul_color(Color.BLUE)
+	changes_color(Color.BLUE)
 
 
 func _physics_process(delta: float) -> void:
@@ -29,7 +29,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		ability.input_handler(event)
 
 
-func change_soul_color(color: Color) -> void:
+func changes_color(color: Color) -> void:
 	modulate = color
 
 
