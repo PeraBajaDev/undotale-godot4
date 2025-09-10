@@ -53,7 +53,7 @@ func enable(_soul):
 		if !child.spared:
 			children.append(child)
 
-	position_array = possible_positions.slice(0, children.size() - 1)
+	position_array = possible_positions.slice(0, children.size())
 	self.soul = _soul
 	connect("select", Callable(self, "disable"))
 	await get_tree().create_timer(0.1).timeout
@@ -67,7 +67,7 @@ func disable():
 func string():
 	var text = ""
 	for child in children:
-		var monster = "\t\t* " + child.NAME + "\n"
+		var monster = "\t\t* " + child.name + "\n"
 		if child.spareable:
 			monster = "[color=yellow]" + monster + "[/color]"
 		text += monster
