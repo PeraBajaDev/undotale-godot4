@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bg6re0t8jgu3s" path="res://BattleEngine/Fight_Manager/Revenge Papyrus/Attacks/Bone.gd" id="2"]
 
 [sub_resource type="RectangleShape2D" id="1"]
-size = Vector2(5, 5)
+size = Vector2(5, 3)
 
 [node name="Bone" type="CharacterBody2D" groups=["damage"]]
 collision_layer = 2
@@ -21,13 +21,19 @@ region_rect = Rect2(0, 0, 13, 11)
 patch_margin_top = 5
 patch_margin_bottom = 6
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(6.5, 0)
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(6.5, 5.5)
 shape = SubResource("1")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
 position = Vector2(4.79221, 4.6929)
 scale = Vector2(0.51735, 1)
 rect = Rect2(-10, -10, 26.5, 20)
+
+[node name="HitBoxComponent" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
+position = Vector2(6.5, 5.5)
+shape = SubResource("1")
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_screen_exited"]

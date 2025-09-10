@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://b4g7m7v1x2n7a"]
+[gd_scene load_steps=8 format=3 uid="uid://b4g7m7v1x2n7a"]
 
 [ext_resource type="Texture2D" uid="uid://c78atbwwrod36" path="res://Shared/Soul/soul.png" id="1"]
-[ext_resource type="Script" uid="uid://css1mdcoieyrd" path="res://Shared/Soul/Soul.gd" id="2"]
+[ext_resource type="Script" uid="uid://css1mdcoieyrd" path="res://Shared/Soul/soul_controller.gd" id="2"]
 [ext_resource type="AudioStream" uid="uid://bhlpc0hke8jth" path="res://Shared/Soul/snd_hurt1.wav" id="3"]
+[ext_resource type="PackedScene" uid="uid://bk4niv8jb1wi0" path="res://Shared/Health System/HurtBoxComponent.tscn" id="4_71p6e"]
+[ext_resource type="Script" uid="uid://ctmyj0dx5gdnv" path="res://Shared/Health System/health_component.gd" id="4_wlffj"]
 
 [sub_resource type="RectangleShape2D" id="1"]
 size = Vector2(12, 12)
@@ -20,13 +22,16 @@ texture = ExtResource("1")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
 
-[node name="Hurt" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3")
+[node name="HealthComponent" type="Node" parent="."]
+script = ExtResource("4_wlffj")
+maxHealth = 5
+metadata/_custom_type_script = "uid://ctmyj0dx5gdnv"
 
-[node name="Area2D" type="Area2D" parent="."]
-collision_mask = 2
+[node name="HurtBoxComponent2" parent="." node_paths=PackedStringArray("healthComponent") instance=ExtResource("4_71p6e")]
+healthComponent = NodePath("../HealthComponent")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent2"]
 shape = SubResource("2")
 
-[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+[node name="Hurt" type="AudioStreamPlayer" parent="HurtBoxComponent2"]
+stream = ExtResource("3")

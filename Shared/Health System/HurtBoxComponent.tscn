@@ -4,3 +4,5 @@
 
 [node name="HurtBoxComponent" type="Area2D"]
 script = ExtResource("1_n8uv7")
+
+[node name="InvencibilityTimer" type="Timer" parent="."]

@@ -15,13 +15,13 @@ var positions := [
 	Vector2(80, 350),
 	Vector2(320, 350)
 ]
-var soul: Soul
+var soul: SoulController
 var list: Array = []
 @onready var squeak_sound: AudioStreamPlayer = %Squeak
 @onready var select_sound: AudioStreamPlayer = %Select
 
 
-func enable(soul: Soul) -> void:
+func enable(soul: SoulController) -> void:
 	self.soul = soul
 	connect("select", Callable(self, "disable"))
 	await get_tree().create_timer(0.1).timeout

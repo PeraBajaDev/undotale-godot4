@@ -8,7 +8,7 @@ var selection := 0
 var enabled := false
 
 var position_array := [[Vector2(80, 285), Vector2(320, 285)], [Vector2(80, 315), Vector2(320, 315)]]
-var soul: Soul
+var soul: SoulController
 var blitter: Blitter
 
 var page := 0
@@ -21,7 +21,7 @@ var list: Array[Array] = []
 @onready var select_sound: AudioStreamPlayer = %Select
 
 
-func enable(soul: Soul, blitter: Blitter) -> void:
+func enable(soul: SoulController, blitter: Blitter) -> void:
 	self.blitter = blitter
 	self.soul = soul
 

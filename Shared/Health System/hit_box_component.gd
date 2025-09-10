@@ -1,5 +1,5 @@
 class_name HitBoxComponent
-extends Node
+extends Area2D
 
 var damage: int:
 	set(value):

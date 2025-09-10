@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://i2sfg6xyb2q2"]
+
+[ext_resource type="PackedScene" uid="uid://b4g7m7v1x2n7a" path="res://Shared/Soul/Soul.tscn" id="1_at05o"]
+[ext_resource type="PackedScene" uid="uid://5qk8ej7fpvo4" path="res://BattleEngine/Fight_Manager/Revenge Papyrus/Attacks/Bone.tscn" id="2_tvcpn"]
+
+[node name="TestSoulNode" type="Node2D"]
+
+[node name="Soul" parent="." instance=ExtResource("1_at05o")]
+position = Vector2(307, 118)
+
+[node name="Bone" parent="." instance=ExtResource("2_tvcpn")]
+position = Vector2(207, 65)

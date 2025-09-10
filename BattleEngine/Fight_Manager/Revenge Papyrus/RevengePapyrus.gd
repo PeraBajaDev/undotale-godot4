@@ -14,7 +14,7 @@ var cutscene_counter := 0
 func cutscene(varbox: Box) -> void:  #YOU CAN CHOOSE WHAT PARAMETERS TO PASS IN
 	box = varbox
 	soul.position = varbox.position + (varbox.size / 2)
-	soul.change_movement("still")
+	soul.abilities.clear()
 	match cutscene_counter:
 		0:
 			varbox.resize(Vector2(300, 140), 1, 1, 1.5)
@@ -26,8 +26,7 @@ func cutscene(varbox: Box) -> void:  #YOU CAN CHOOSE WHAT PARAMETERS TO PASS IN
 
 
 func attack() -> void:
-	soul.change_movement("red")
-	soul.change_movement("blue")
+	soul.add_ability(GravityMovementAbility.new())
 	for i in range(3):
 		var bone: Bone = bone_tscn.instantiate()
 		bone.motion = Vector2(100, 0)

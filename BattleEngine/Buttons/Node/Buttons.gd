@@ -8,7 +8,7 @@ var selection := 0
 var enabled := false
 
 var positions := [50, 205, 362, 517]
-var soul: Soul
+var soul: SoulController
 
 @onready var children: Array[AnimatedSprite2D] = []
 @onready var squeak_sound: AudioStreamPlayer = %Squeak
@@ -19,7 +19,7 @@ func _ready() -> void:
 	children.assign(self.get_children())
 
 
-func enable(_soul: Soul) -> void:
+func enable(_soul: SoulController) -> void:
 	self.soul = _soul
 	select.connect(disable)  # connect("select", Callable(self, "disable"))
 	self.enabled = true

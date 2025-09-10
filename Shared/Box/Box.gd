@@ -70,7 +70,7 @@ func resize(
 				. set_trans(Tween.TRANS_QUINT)
 			)
 
-	var pos_tween := get_tree().create_tween()
+	var _pos_tween := get_tree().create_tween()
 	if newpos != Vector2.INF:
 		(
 			resize_tween

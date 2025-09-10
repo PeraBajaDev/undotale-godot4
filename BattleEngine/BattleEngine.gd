@@ -16,7 +16,7 @@ var random := [-1, 1]
 @onready var attacks := $Box/Attacks
 @onready var blitter: Blitter = $Box/Blitter
 @onready var enemies: RevengePapyrus = $Enemies
-@onready var soul: Soul = $Soul
+@onready var soul: SoulController = $Soul
 @onready var camera: Camera2D = $Camera3D
 @onready var buttons: Buttons = $Buttons
 @onready var acting: ActingSelector = $ActingSelector
@@ -130,7 +130,7 @@ func enemys_turn() -> void:
 	enemies.attack()
 	await enemies.cutscene_end
 
-	soul.change_movement("")
+	soul.abilities.clear()
 	players_turn()
 
 

@@ -10,7 +10,7 @@ var enabled := false  # was "enable"
 
 var possible_positions := [285, 315, 350]
 var position_array := []
-var soul: Soul
+var soul: SoulController
 
 var monsters: Array[Monster] = []
 
@@ -49,14 +49,14 @@ func _process(_delta: float) -> void:
 			select.emit()  # emit_signal("select")
 
 
-func enable(soul: Soul) -> void:
+func enable(_soul: SoulController) -> void:
 	monsters.clear()
 	for child in get_children() as Array[Monster]:
 		if !child.spared:
 			monsters.append(child)
 
 	position_array = possible_positions.slice(0, monsters.size())
-	self.soul = soul
+	self.soul = _soul
 	select.connect(disable)
 	await get_tree().create_timer(0.1).timeout
 	enabled = true
