@@ -9,7 +9,7 @@ var enabled = false
 var positions = [50, 205, 362, 517]
 var soul
 
-@onready var children = self.get_children().slice(0, 3)
+@onready var children = self.get_children()
 
 
 func enable(_soul):
@@ -26,7 +26,7 @@ func _process(_delta):
 		)
 
 		if input:
-			get_parent().get_node("Squeak").play()
+			%Squeak.play()
 
 		children[selection].frame = 0
 		selection = (selection + input) % 4

@@ -306,6 +306,7 @@ position = Vector2(62.7556, 208.974)
 stream = ExtResource("19")
 
 [node name="Squeak" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("18")
 
 [node name="ActingSelector" type="Node2D" parent="."]
