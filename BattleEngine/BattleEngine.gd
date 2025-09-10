@@ -1,3 +1,4 @@
+class_name BattleEngine
 extends Node2D
 
 signal shake_camera

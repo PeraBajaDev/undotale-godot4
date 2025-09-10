@@ -2,22 +2,22 @@ extends CharacterBody2D
 
 @export var current_function: String  # (String, "", "red", "blue")
 
-var health = 48
+var health := 48
 
-var speed = 190
+var speed := 190
 var motion := Vector2.ZERO
-var gravity = 3
+var gravity := 3
 
-var jump = Vector2(40, 240)
+var jump := Vector2(40, 240)
 
 var input_list := [0, 0, 0, 0]
 var input := Vector2.ZERO
 
-var floor_rotation = 0.0
+var floor_rotation: float = 0
 
-var main_scene
+var main_scene: BattleEngine
 
-@onready var ghost = preload("res://Shared/Soul/Ghost.tscn")
+@onready var ghost: PackedScene = preload("res://Shared/Soul/Ghost.tscn")
 
 
 func _ready():
@@ -97,4 +97,4 @@ func _on_body_entered(body):
 func hit(damage = 0):
 	health -= damage
 	$Hurt.play()
-	main_scene.emit_signal("shake_camera")
+	main_scene.shake_camera.
