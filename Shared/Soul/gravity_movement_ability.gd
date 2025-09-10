@@ -2,7 +2,7 @@ class_name GravityMovementAbility
 extends SoulAbility
 
 var motion: Vector2
-const JUMP_FORCE := 400
+const JUMP_FORCE := 250
 
 
 func update(owner: SoulController, _delta: float) -> void:
@@ -14,7 +14,7 @@ func update(owner: SoulController, _delta: float) -> void:
 		motion.y += owner.gravity * 2
 
 	if owner.is_on_floor() and is_jumping:
-		motion.y -= JUMP_FORCE
+		motion.y = -JUMP_FORCE
 	if owner.is_on_ceiling():
 		motion.y += owner.gravity * 2
 
