@@ -1,26 +1,27 @@
 class_name HealthComponent
 extends Node
 
-@export var maxHealthLimit: int = 100
-@export var maxHealth: int:
-	set(value):
-		maxHealth = value if value <= maxHealthLimit else maxHealthLimit
-var health: int:
-	set(value):
-		health = value if value >= 0 else 0
 signal damaged
-signal maxHealthIncremented
+signal max_health_incremented
 signal died
 signal dying
 
+@export var max_health_limit: int = 100
+@export var max_health: int:
+	set(value):
+		max_health = value if value <= max_health_limit else max_health_limit
+var health: int:
+	set(value):
+		health = value if value >= 0 else 0
+
 
 func _ready() -> void:
-	health = maxHealth
+	health = max_health
 
 
 func inscrease_max_health() -> void:
-	maxHealth += 1
-	maxHealthIncremented.emit()
+	max_health += 1
+	max_health_incremented.emit()
 
 
 func harm(value: int) -> void:
