@@ -3,81 +3,83 @@ extends Node2D
 
 signal select
 signal cutscene_end
-var input
-var selection = 0
+var vertical_input: float
+var selection := 0
 
-var enabled = false  # was "enable"
+var enabled := false  # was "enable"
 
-var possible_positions = [285, 315, 350]
-var position_array = []
-var soul
+var possible_positions := [285, 315, 350]
+var position_array := []
+var soul: Soul
 
-var children = []
+var monsters: Array[Monster] = []
 
 #var cutscene = [] # ether: wasn't commented before
+@onready var squeak_sound: AudioStreamPlayer = %Squeak
+@onready var select_sound: AudioStreamPlayer = %Select
 
 
-func cutscene(_arg):  # ether: to be overloaded?
+func cutscene(_arg: Box) -> void:  # ether: to be overloaded?
 	pass
 
 
-func _ready():
+func _ready() -> void:
 	cutscene_end.connect(get_selection)  # connect("cutscene_end", Callable(self, "selection"))
 
 
-func _process(_delta):
+func _process(_delta: float) -> void:
 	if enabled:
-		input = (
+		vertical_input = (
 			int(Input.is_action_just_pressed("ui_down"))
 			- int(Input.is_action_just_pressed("ui_up"))
 		)
 
-		if input:
-			get_parent().get_node("Squeak").play()
+		if vertical_input:
+			squeak_sound.play()
 
-		selection = (selection + input) % children.size()
+		selection = int(selection + vertical_input) % monsters.size()
 		soul.position = Vector2(80, position_array[selection])
 
 		if Input.is_action_just_pressed("ui_accept"):
 			self.enabled = false
-			get_parent().get_node("Select").play()
+			select_sound.play()
 			select.emit()  # emit_signal("select")
 		elif Input.is_action_just_pressed("ui_cancel"):
-			get_parent().get_node("Squeak").play()
+			squeak_sound.play()
 			select.emit()  # emit_signal("select")
 
 
-func enable(_soul):
-	children.clear()
-	for child in get_children():
+func enable(soul: Soul) -> void:
+	monsters.clear()
+	for child in get_children() as Array[Monster]:
 		if !child.spared:
-			children.append(child)
+			monsters.append(child)
 
-	position_array = possible_positions.slice(0, children.size())
-	self.soul = _soul
-	connect("select", Callable(self, "disable"))
+	position_array = possible_positions.slice(0, monsters.size())
+	self.soul = soul
+	select.connect(disable)
 	await get_tree().create_timer(0.1).timeout
-	self.enabled = true
+	enabled = true
 
 
-func disable():
-	disconnect("select", Callable(self, "disable"))
+func disable() -> void:
+	select.disconnect(disable)
 
 
-func string():
-	var text = ""
-	for child in children:
-		var monster = "\t\t* " + child.name + "\n"
+func get_formated_name() -> String:
+	var formated_name := ""
+	for child in monsters:
+		var monster_name: String = "\t\t* " + child.monster_name + "\n"
 		if child.spareable:
-			monster = "[color=yellow]" + monster + "[/color]"
-		text += monster
-	return text
+			monster_name = "[color=yellow]" + monster_name + "[/color]"
+		formated_name += monster_name
+	return formated_name
 
 
-func get_selection():  # was "selection"
-	return children[selection]
+func get_selection() -> Monster:  # was "selection"
+	return monsters[selection]
 
 
-func _on_select():
+func _on_select() -> void:
 	# was "select". ether: idk what this does, and why nothing happens on select signal
 	pass

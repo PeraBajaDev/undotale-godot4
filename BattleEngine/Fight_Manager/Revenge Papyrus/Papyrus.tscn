@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b4g5iq71aofi1" path="res://BattleEngine/Bubble/bubble_4.png" id="4"]
 [ext_resource type="Texture2D" uid="uid://dv3lwvvg4d7x" path="res://BattleEngine/Bubble/bubble_3.png" id="5"]
 [ext_resource type="Script" uid="uid://drsu0g2ds6ebo" path="res://BattleEngine/Fight_Manager/Revenge Papyrus/Papyrus.gd" id="6"]
-[ext_resource type="PackedScene" path="res://Shared/Text/Blitter.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://b6gxt5ssic4v5" path="res://Shared/Text/Blitter.tscn" id="7"]
 [ext_resource type="Texture2D" uid="uid://dpfv54kevyqty" path="res://BattleEngine/Bubble/bubble_6.png" id="8"]
 [ext_resource type="Texture2D" uid="uid://caiu1ju5gpmeq" path="res://BattleEngine/Bubble/bubble_2.png" id="9"]
 [ext_resource type="Texture2D" uid="uid://csifcpkq6mb6r" path="res://BattleEngine/Bubble/bubble_8.png" id="10"]
@@ -444,6 +444,6 @@ skippable = true
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_eh4d4")
+&"": SubResource("AnimationLibrary_eh4d4")
 }
 playback_default_blend_time = 0.1

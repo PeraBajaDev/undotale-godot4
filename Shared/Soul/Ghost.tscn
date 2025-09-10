@@ -4,5 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://c78atbwwrod36" path="res://Shared/Soul/soul.png" id="2"]
 
 [node name="Ghost" type="Sprite2D"]
+position = Vector2(3, 0)
 texture = ExtResource("2")
 script = ExtResource("1")

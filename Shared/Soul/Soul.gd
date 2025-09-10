@@ -1,3 +1,4 @@
+class_name Soul
 extends CharacterBody2D
 
 @export var current_function: String  # (String, "", "red", "blue")
@@ -15,36 +16,34 @@ var input := Vector2.ZERO
 
 var floor_rotation: float = 0
 
-var main_scene: BattleEngine
-
 @onready var ghost: PackedScene = preload("res://Shared/Soul/Ghost.tscn")
+@onready var hurt_sound: AudioStreamPlayer = $Hurt
 
 
-func _ready():
-	main_scene = owner
+func _ready() -> void:
 	modulate = Color(1, 0, 0, 1)
 	change_movement(current_function)
 
 
-func _physics_process(delta):
+func _physics_process(delta: float) -> void:
 	if current_function:
 		call(current_function, delta)
 
 
-func change_movement(value):
-	var negate = ["", "still"]
+func change_movement(value: String) -> void:
+	var negate := ["", "still"]
 	if !(current_function in negate) and !(value in negate):
-		var ghost_inst = ghost.instantiate()
+		var ghost_inst := ghost.instantiate()
 		self.add_child(ghost_inst)
 	current_function = value
 
 
-func still(_delta):
+func still(_delta: float) -> void:
 	set_velocity(Vector2.ZERO)
 	move_and_slide()
 
 
-func red(_delta):
+func red(_delta: float) -> void:
 	modulate = Color(1, 0, 0, 1)
 	input_list = [
 		int(Input.is_action_pressed("ui_right")),
@@ -59,7 +58,7 @@ func red(_delta):
 	move_and_slide()
 
 
-func blue(_delta):
+func blue(_delta: float) -> void:
 	modulate = Color(0, 0, 1, 1)
 	input_list = [
 		int(Input.is_action_pressed("ui_right")),
@@ -88,13 +87,11 @@ func blue(_delta):
 	move_and_slide()
 
 
-func _on_body_entered(body):
-	if body.is_in_group("damage"):
-		hit(body.damage)
-		body.queue_free()
+func _on_body_entered(body: Bone) -> void:
+	hit(body.damage)
+	body.queue_free()
 
 
-func hit(damage = 0):
+func hit(damage := 0) -> void:
 	health -= damage
-	$Hurt.play()
-	main_scene.shake_camera.
+	hurt_sound.play()

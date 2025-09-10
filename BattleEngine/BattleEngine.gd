@@ -3,38 +3,40 @@ extends Node2D
 
 signal shake_camera
 
-var selection
-var function
-var store_amnt = 0
-var random = [-1, 1]
-@onready var Attacker = preload("res://BattleEngine/DamageMeter/DamageMeter.tscn")
-@onready var Slice = preload("res://BattleEngine/Weapon/Weapon.tscn")
-@onready var Damage = preload("res://BattleEngine/DamageMeter/Text/Damage.tscn")
+var selection: Monster
+var function: String
+var store_amnt := 0
+var random := [-1, 1]
+@onready var Attacker: PackedScene = preload("res://BattleEngine/DamageMeter/DamageMeter.tscn")
+@onready var Slice: PackedScene = preload("res://BattleEngine/Weapon/Weapon.tscn")
+@onready var Damage: PackedScene = preload("res://BattleEngine/DamageMeter/Text/Damage.tscn")
 
-@onready var box = $Box
-@onready var global_attacks = $Attacks
-@onready var attacks = $Box/Attacks
-@onready var blitter = $Box/Blitter
-@onready var enemies = $Enemies
-@onready var soul = $Soul
+@onready var box: Box = $Box
+@onready var global_attacks := $Attacks
+@onready var attacks := $Box/Attacks
+@onready var blitter: Blitter = $Box/Blitter
+@onready var enemies: RevengePapyrus = $Enemies
+@onready var soul: Soul = $Soul
+@onready var camera: Camera2D = $Camera3D
+@onready var buttons: Buttons = $Buttons
+@onready var acting: ActingSelector = $ActingSelector
+@onready var items: ItemSelector = $ItemSelector
+@onready var music: AudioStreamPlayer = $Music
 
-@onready var buttons = $Buttons
-@onready var acting = $ActingSelector
-@onready var items = $ItemSelector
 
-
-func _ready():
+func _ready() -> void:
 	shake_camera.connect(_on_shake_camera)  # connect("shake_camera", Callable(self, "shake_camera"))
-	$Music.play(10)
-	$HUD/Name.text = Data.human
+	music.play(10)
+	var hud: RichTextLabel = $HUD/Name
+	hud.text = Data.human
 	players_turn()
 
 
-func _process(_delta):
+func _process(_delta: float) -> void:
 	pass
 
 
-func players_turn(reset_line = true):
+func players_turn(reset_line := true) -> void:
 	if reset_line:
 		blitter.feed(["* You feel puzzled.", [22], null, false])
 	buttons.enable(soul)
@@ -57,14 +59,14 @@ func players_turn(reset_line = true):
 				return
 
 
-func target():
+func target() -> void:
 	enemies.enable(soul)
-	blitter.feed([enemies.string(), null, null, true])
-	await enemies.select
-	selection = enemies.get_selection()
+	blitter.feed([acting.get_option(), null, null, true])
+	await acting.select
+	selection = acting.get_selection()
 
-	if enemies.enable:
-		enemies.enable = false
+	if enemies.enabled:
+		enemies.enabled = false
 		players_turn()
 		return
 
@@ -73,24 +75,23 @@ func target():
 			buttons.turn_off()
 			soul.position = Vector2(-10, -10)
 
-			var attacker = Attacker.instantiate()
+			var attacker: DamageMeter = Attacker.instantiate()
 			attacker.position = box.position + (box.size / 2)
-			attacker.connect("slaughter", Callable(self, "slay"))
-			attacker.connect("enemys_turn", Callable(self, "enemys_turn"))
+			attacker.slaughter.connect(slay)
+			attacker.enemys_turn.connect(enemys_turn)
 
 			blitter.feed()
 
 			add_child(attacker)
-
 			print(attacker.rotation)
 		"Act":
 			acting.list = selection.actings
-			blitter.feed([acting.string(), null, null, true])
+			blitter.feed([acting.get_option(), null, null, true])
 			acting.enable(soul)
 			await acting.select
 
-			if acting.enable:
-				acting.enable = false
+			if acting.enabled:
+				acting.enabled = false
 				target()
 				return
 
@@ -105,44 +106,45 @@ func target():
 			enemys_turn()
 
 
-func slay():
-	var slice = Slice.instantiate()
+func slay() -> void:
+	var slice: Node2D = Slice.instantiate()
 	slice.position = selection.position
 	add_child(slice)
 	await get_tree().create_timer(1).timeout
 
-	var damage = Damage.instantiate()
+	var damage: Node2D = Damage.instantiate()
 	damage.position = selection.position
 	selection.shake(15)
-	damage.get_node("Label").text = String(selection.DEF)
+	var label: Label = damage.get_node("Label")
+	label.text = "%d " % selection.defense
 
 	add_child(damage)
 
 	print(damage.rotation)
 
 
-func enemys_turn():
+func enemys_turn() -> void:
 	enemies.cutscene(box)
 	await enemies.cutscene_end
 
 	enemies.attack()
 	await enemies.cutscene_end
 
-	soul.changeMovement("")
+	soul.change_movement("")
 	players_turn()
 
 
-func _on_shake_camera(amount = 5):
+func _on_shake_camera(amount := 5) -> void:
 	if store_amnt == 0:
 		store_amnt = (amount / 100.0) + 0.01
-	var offset_sign = Vector2(
-		(int($Camera3D.offset.x >= 0) * 2) - 1, (int($Camera3D.offset.y >= 0) * 2) - 1
+	var offset_sign := Vector2(
+		(int(camera.offset.x >= 0) * 2) - 1, (int(camera.offset.y >= 0) * 2) - 1
 	)
-	$Camera3D.offset = Vector2(
+	camera.offset = Vector2(
 		-(amount * offset_sign.x), random[randi() % random.size()] * (amount * offset_sign.y)
 	)
 	amount -= 1
-	var test = amount / 100.0
+	var test: float = amount / 100.0
 	await get_tree().create_timer(store_amnt - test).timeout
 	if amount != 0:
 		_on_shake_camera(amount)  # ether: idk if this is calling the signal or the function itself

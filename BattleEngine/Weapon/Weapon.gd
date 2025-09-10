@@ -1,14 +1,16 @@
 extends Node2D
 
-
-func _ready():
-	$AnimationPlayer.play("slice")
+@onready var animations: AnimationPlayer = $AnimationPlayer
 
 
-func _on_animation_finished(_anim_name):
-	$AnimationPlayer.stop()
+func _ready() -> void:
+	animations.play("slice")
+
+
+func _on_animation_finished(_anim_name: String) -> void:
+	animations.stop()
 	queue_free()
 
 
-func random_rotation():
+func random_rotation() -> void:
 	rotation_degrees = randf_range(0, 360)

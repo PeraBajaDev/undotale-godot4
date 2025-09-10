@@ -1,26 +1,29 @@
+class_name ItemSelector
 extends Node2D
 
 signal select
-var input = Vector2.ZERO
-var selection = 0
+var input := Vector2.ZERO
+var selection := 0
 
-var enabled = false
+var enabled := false
 
-var position_array = [[Vector2(80, 285), Vector2(320, 285)], [Vector2(80, 315), Vector2(320, 315)]]
-var soul
-var blitter
+var position_array := [[Vector2(80, 285), Vector2(320, 285)], [Vector2(80, 315), Vector2(320, 315)]]
+var soul: Soul
+var blitter: Blitter
 
-var page = 0
-var page_old = 0
-var page_max = 0
-var second_row = false
+var page := 0
+var page_old := 0
+var page_max := 0
+var second_row := false
 
-var list = []
+var list: Array[Array] = []
+@onready var squeak_sound: AudioStreamPlayer = %Squeak
+@onready var select_sound: AudioStreamPlayer = %Select
 
 
-func enable(_soul, _blitter):
-	self.blitter = _blitter
-	self.soul = _soul
+func enable(soul: Soul, blitter: Blitter) -> void:
+	self.blitter = blitter
+	self.soul = soul
 
 	list = rows(Data.items)
 	blitter.feed([string(), null, null, true])  # ether: should this be blitter or _blitter?
@@ -30,21 +33,21 @@ func enable(_soul, _blitter):
 	self.enabled = true
 
 
-func string():
-	var text = ""
+func string() -> String:
+	var text := ""
 
-	var row_one = list[0].slice(2 * page, (2 * page) + 1, 1)
-	var row_two = list[1].slice(2 * page, (2 * page) + 1, 1)
+	var row_one: Array = list[0].slice(2 * page, (2 * page) + 1, 1)
+	var row_two: Array = list[1].slice(2 * page, (2 * page) + 1, 1)
 
-	var both = []
+	var both := []
 
 	both.append_array(row_one)
 	both.append_array(row_two)
 
-	var lines = 0
+	var lines := 0
 
 	for index in range(both.size()):
-		var option = both[index]
+		var option: String = both[index]
 		if index % 2 == 1:
 			for spaces in range(14 - len(both[index - 1])):
 				text += " "
@@ -60,22 +63,21 @@ func string():
 	return text
 
 
-func rows(paralist, reverse = false):
-	var copylist = paralist.duplicate(true)
-	var size = copylist.size()
-	var new_list = []
+func rows(paralist: Array, reverse := false) -> Array:
+	var copylist := paralist.duplicate(true)
+	var size := copylist.size()
+	var new_list: Array[Array] = []
 	if reverse:
-		for sub in copylist:
+		for sub: String in copylist:
 			for element in sub:
 				new_list.append(element)
 		return new_list
 
-	var page_num = ceil(copylist.size() / 4.0)
-	page_max = page_num
+	page_max = ceil(copylist.size() / 4.0)
 
 	new_list.append_array([[], []])
 
-	for _page in range(page_num):
+	for _page in range(page_max):
 		for index in range(clamp(2, 1, copylist.size())):
 			new_list[0].append(copylist.pop_front())
 		for index in range(clamp(2, 1, copylist.size())):
@@ -84,7 +86,7 @@ func rows(paralist, reverse = false):
 	return new_list
 
 
-func _process(_delta):
+func _process(_delta: float) -> void:
 	if enabled:
 		input.x = (
 			int(Input.is_action_just_pressed("ui_right"))
@@ -101,7 +103,7 @@ func _process(_delta):
 		page = abs(((selection) / 2) % int(page_max))
 
 		if input:
-			get_parent().get_node("Squeak").play()
+			squeak_sound.play()
 			if page_old != page:
 				page_old = page
 				blitter.feed([string(), null, null, true])
@@ -113,20 +115,20 @@ func _process(_delta):
 
 		if Input.is_action_just_pressed("ui_accept"):
 			self.enabled = false
-			get_parent().get_node("Select").play()
+			select_sound.play()
 			select.emit()  # emit_signal("select")
 		elif Input.is_action_just_pressed("ui_cancel"):
-			get_parent().get_node("Squeak").play()
+			squeak_sound.play()
 			select.emit()  # emit_signal("select")
 
 
-func disable():
+func disable() -> void:
 	select.disconnect(disable)  # disconnect("select", Callable(self, "disable"))
 
 
-func get_selection():  # was "selection"
+func get_selection() -> String:  # was "selection"
 	return list[int(second_row)][selection]
 
 
-func cutscene():
+func cutscene() -> void:
 	pass

@@ -1,12 +1,13 @@
+class_name ActingSelector
 extends Node2D
 
 signal select
-var input = Vector2.ZERO
-var selection = 0
+var input := Vector2.ZERO
+var selection := 0
 
-var enabled = false  # was "enable"
+var enabled := false  # was "enable"
 
-var positions = [
+var positions := [
 	Vector2(80, 285),
 	Vector2(320, 285),
 	Vector2(80, 315),
@@ -14,19 +15,20 @@ var positions = [
 	Vector2(80, 350),
 	Vector2(320, 350)
 ]
-var soul
+var soul: Soul
+var list: Array = []
+@onready var squeak_sound: AudioStreamPlayer = %Squeak
+@onready var select_sound: AudioStreamPlayer = %Select
 
-var list = []
 
-
-func enable(_soul):
-	self.soul = _soul
+func enable(soul: Soul) -> void:
+	self.soul = soul
 	connect("select", Callable(self, "disable"))
 	await get_tree().create_timer(0.1).timeout
 	self.enabled = true
 
 
-func _process(_delta):
+func _process(_delta: float) -> void:
 	if enabled:
 		input.x = (
 			int(Input.is_action_just_pressed("ui_right"))
@@ -41,7 +43,7 @@ func _process(_delta):
 		)
 
 		if input:
-			get_parent().get_node("Squeak").play()
+			squeak_sound.play()
 
 		selection = int(selection + input.x + input.y) % list.size()
 
@@ -49,17 +51,17 @@ func _process(_delta):
 
 		if Input.is_action_just_pressed("ui_accept"):
 			self.enabled = false
-			get_parent().get_node("Select").play()
+			select_sound.play()
 			select.emit()  #emit_signal("select")
 		elif Input.is_action_just_pressed("ui_cancel"):
-			get_parent().get_node("Squeak").play()
+			squeak_sound.play()
 			select.emit()  #emit_signal("select")
 
 
-func string():
-	var text = ""
+func get_option() -> String:
+	var text := ""
 	for index in range(list.size()):
-		var option = list[index]
+		var option: String = list[index]
 		if index % 2 == 1:
 			for spaces in range(14 - len(list[index - 1])):
 				text += " "
@@ -69,9 +71,9 @@ func string():
 	return text
 
 
-func disable():
+func disable() -> void:
 	disconnect("select", Callable(self, "disable"))
 
 
-func get_selection():  # was "selection
+func get_selection() -> Monster:  # was "selection
 	return list[selection]

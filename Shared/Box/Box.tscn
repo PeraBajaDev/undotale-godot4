@@ -87,11 +87,10 @@ border = 4
 [node name="Sprite2D" type="NinePatchRect" parent="."]
 clip_contents = true
 custom_minimum_size = Vector2(22, 22)
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 texture = ExtResource("1")
 patch_margin_left = 5
 patch_margin_top = 5
