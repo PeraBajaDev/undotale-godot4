@@ -24,6 +24,7 @@ shape = SubResource("1")
 
 [node name="HealthComponent" type="Node" parent="."]
 script = ExtResource("4_wlffj")
+max_health = 10
 metadata/_custom_type_script = "uid://ctmyj0dx5gdnv"
 
 [node name="HurtBoxComponent2" parent="." node_paths=PackedStringArray("health_component") instance=ExtResource("4_71p6e")]

@@ -7,4 +7,7 @@ func update(owner: SoulController, _delta: float) -> void:
 	var motion := owner.speed * input
 	owner.set_velocity(motion)
 	owner.move_and_slide()
+
+
+func input_handler(_event: InputEvent) -> void:
 	pass

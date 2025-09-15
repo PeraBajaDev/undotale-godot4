@@ -10,16 +10,18 @@ var gravity := 3
 var jump := Vector2(40, 240)
 var abilities: Array[SoulAbility]
 var floor_rotation: float = 0
-
+var can_move := true
 @onready var ghost: PackedScene = preload("res://Shared/Soul/Ghost.tscn")
 
 
 func _ready() -> void:
-	add_ability(GravityMovementAbility.new())
-	changes_color(Color.BLUE)
+	add_ability(TopDownMovementAbility.new())
+	changes_color(Color.RED)
 
 
 func _physics_process(delta: float) -> void:
+	if not can_move:
+		return
 	for ability in abilities:
 		ability.update(self, delta)
 
