@@ -1,0 +1,35 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dumd7k330kv0k"]
+
+[ext_resource type="FontFile" uid="uid://kkk2rffgw4l0" path="res://Fonts/DTM-Mono.otf" id="1_7olnx"]
+[ext_resource type="Texture2D" uid="uid://boqwluiw8ebk5" path="res://Shared/Box/box.png" id="2_s1nn8"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s1nn8"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0.23, 0.23, 0.23, 0)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_r7c43"]
+texture = ExtResource("2_s1nn8")
+region_rect = Rect2(0, 0, 22, 22)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7olnx"]
+bg_color = Color(0.972549, 0.972549, 0.447059, 1)
+
+[resource]
+default_font = ExtResource("1_7olnx")
+Button/colors/font_focus_color = Color(0.968627, 0.968627, 0.443137, 1)
+Button/fonts/font = ExtResource("1_7olnx")
+Button/styles/disabled = SubResource("StyleBoxFlat_s1nn8")
+Button/styles/focus = SubResource("StyleBoxFlat_s1nn8")
+Button/styles/normal = SubResource("StyleBoxFlat_s1nn8")
+ColorPickerButton/styles/normal = SubResource("StyleBoxTexture_r7c43")
+Label/fonts/font = ExtResource("1_7olnx")
+ProgressBar/colors/font_color = Color(0.95, 0.95, 0.95, 0)
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_7olnx")

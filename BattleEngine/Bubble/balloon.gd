@@ -1,6 +1,7 @@
+class_name BoxDialogue
 extends CanvasLayer
 ## A basic dialogue balloon for use with Dialogue Manager.
-
+signal response_selected
 ## The action to use for advancing the dialogue
 @export var next_action: StringName = &"ui_accept"
 
@@ -9,6 +10,8 @@ extends CanvasLayer
 
 ## The dialogue resource
 var resource: DialogueResource
+
+var last_selected_response: DialogueResponse
 
 ## Temporary game states
 var temporary_game_states: Array = []
@@ -23,7 +26,6 @@ var will_hide_balloon: bool = false
 var locals: Dictionary = {}
 
 var _locale: String = TranslationServer.get_locale()
-
 ## The current line
 var dialogue_line: DialogueLine:
 	set(value):
@@ -32,7 +34,7 @@ var dialogue_line: DialogueLine:
 			apply_dialogue_line()
 		else:
 			# The dialogue has finished so close the balloon
-			queue_free()
+			balloon.hide()
 	get:
 		return dialogue_line
 
@@ -40,7 +42,7 @@ var dialogue_line: DialogueLine:
 var mutation_cooldown: Timer = Timer.new()
 
 ## The base balloon anchor
-@onready var balloon: Control = %Balloon
+@onready var balloon: Control = %Box
 
 ## The label showing the name of the currently speaking character
 @onready var character_label: RichTextLabel = %CharacterLabel
@@ -68,8 +70,7 @@ func _ready() -> void:
 
 
 func _unhandled_input(_event: InputEvent) -> void:
-	# Only the balloon is allowed to handle input while it's showing
-	get_viewport().set_input_as_handled()
+	pass
 
 
 func _notification(what: int) -> void:
@@ -93,7 +94,9 @@ func start(
 	temporary_game_states = [self] + extra_game_states
 	is_waiting_for_input = false
 	resource = dialogue_resource
-	self.dialogue_line = await resource.get_next_dialogue_line(title, temporary_game_states)
+	var next_dialogue_line := await resource.get_next_dialogue_line(title, temporary_game_states)
+	if next_dialogue_line:
+		self.dialogue_line = next_dialogue_line
 
 
 ## Apply any changes to the balloon given a new [DialogueLine].
@@ -102,7 +105,6 @@ func apply_dialogue_line() -> void:
 
 	is_waiting_for_input = false
 	balloon.focus_mode = Control.FOCUS_ALL
-	balloon.grab_focus()
 
 	character_label.visible = not dialogue_line.character.is_empty()
 	character_label.text = tr(dialogue_line.character, "dialogue")
@@ -137,7 +139,6 @@ func apply_dialogue_line() -> void:
 	else:
 		is_waiting_for_input = true
 		balloon.focus_mode = Control.FOCUS_ALL
-		balloon.grab_focus()
 
 
 ## Go to the next line
@@ -162,15 +163,9 @@ func _on_mutated(_mutation: Dictionary) -> void:
 
 func _on_balloon_gui_input(event: InputEvent) -> void:
 	# See if we need to skip typing of the dialogue
-	var event_mouse := event as InputEventMouseButton
 	if dialogue_label.is_typing:
-		var mouse_was_clicked: bool = (
-			event_mouse
-			and event_mouse.button_index == MOUSE_BUTTON_LEFT
-			and event_mouse.is_pressed()
-		)
 		var skip_button_was_pressed: bool = event.is_action_pressed(skip_action)
-		if mouse_was_clicked or skip_button_was_pressed:
+		if skip_button_was_pressed:
 			get_viewport().set_input_as_handled()
 			dialogue_label.skip_typing()
 			return
@@ -183,13 +178,13 @@ func _on_balloon_gui_input(event: InputEvent) -> void:
 	# When there are no response options the balloon itself is the clickable thing
 	get_viewport().set_input_as_handled()
 
-	if event_mouse and event_mouse.is_pressed() and event_mouse.button_index == MOUSE_BUTTON_LEFT:
-		next(dialogue_line.next_id)
-	elif event.is_action_pressed(next_action) and get_viewport().gui_get_focus_owner() == balloon:
+	if event.is_action_pressed(next_action) and get_viewport().gui_get_focus_owner() == balloon:
 		next(dialogue_line.next_id)
 
 
 func _on_responses_menu_response_selected(response: DialogueResponse) -> void:
+	last_selected_response = response
+	response_selected.emit()
 	next(response.next_id)
 
 #endregion

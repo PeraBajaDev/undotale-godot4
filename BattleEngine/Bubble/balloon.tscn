@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dpex4p3mbd85q"]
 
 [ext_resource type="Script" uid="uid://cjexfqti7orda" path="res://BattleEngine/Bubble/balloon.gd" id="1_36de5"]
-[ext_resource type="Theme" uid="uid://dumd7k330kv0k" path="res://hud_theme.tres" id="2_8mwk2"]
+[ext_resource type="Theme" uid="uid://dumd7k330kv0k" path="res://GeneralResources/hud_theme.tres" id="2_8mwk2"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_a8ve6"]
 [ext_resource type="Script" uid="uid://bb52rsfwhkxbn" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="3_72ixx"]
 
@@ -73,12 +73,10 @@ border_width_bottom = 7
 border_color = Color(1, 1, 1, 1)
 corner_detail = 10
 
-[node name="ExampleBalloon" type="CanvasLayer"]
-layer = 100
+[node name="BoxDialogue" type="CanvasLayer"]
 script = ExtResource("1_36de5")
 
-[node name="Balloon" type="Control" parent="."]
-unique_name_in_owner = true
+[node name="HUD" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -87,59 +85,81 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_qq3yp")
 
-[node name="MarginContainer" type="MarginContainer" parent="Balloon"]
+[node name="Box" type="MarginContainer" parent="HUD"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -219.0
+offset_left = 1.0
+offset_top = -283.0
+offset_right = 1.0
+offset_bottom = -9.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_constants/margin_bottom = 80
 
-[node name="PanelContainer" type="PanelContainer" parent="Balloon/MarginContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="HUD/Box"]
 clip_children = 2
+custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
-mouse_filter = 1
+size_flags_horizontal = 4
+size_flags_vertical = 8
 theme = ExtResource("2_8mwk2")
 theme_override_styles/panel = SubResource("StyleBoxFlat_h3rbl")
 
-[node name="MarginContainer" type="MarginContainer" parent="Balloon/MarginContainer/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HUD/Box/PanelContainer"]
 layout_mode = 2
+size_flags_vertical = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Balloon/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="CharacterLabel" type="RichTextLabel" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0.501961)
-layout_mode = 2
-mouse_filter = 1
-bbcode_enabled = true
-text = "Character"
-fit_content = true
-scroll_active = false
-
-[node name="DialogueLabel" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("2_a8ve6")]
+[node name="ResponsesMenu" type="VBoxContainer" parent="HUD/Box/PanelContainer/MarginContainer" node_paths=PackedStringArray("response_template")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-theme = ExtResource("2_8mwk2")
-text = "Dialogue..."
-
-[node name="ResponsesMenu" type="VBoxContainer" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" node_paths=PackedStringArray("response_template")]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 8
 theme_override_constants/separation = 2
-alignment = 1
 script = ExtResource("3_72ixx")
 response_template = NodePath("ResponseExample")
 
-[node name="ResponseExample" type="Button" parent="Balloon/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ResponsesMenu"]
+[node name="ResponseExample" type="Button" parent="HUD/Box/PanelContainer/MarginContainer/ResponsesMenu"]
 layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
 theme = ExtResource("2_8mwk2")
 text = "Response example"
 
-[connection signal="gui_input" from="Balloon" to="." method="_on_balloon_gui_input"]
-[connection signal="response_selected" from="Balloon/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/Box/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Box/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+size_flags_vertical = 8
+alignment = 1
+
+[node name="CharacterLabel" type="RichTextLabel" parent="HUD/Box/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 1
+bbcode_enabled = true
+text = "*"
+scroll_active = false
+
+[node name="DialogueLabel" parent="HUD/Box/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("2_a8ve6")]
+unique_name_in_owner = true
+clip_contents = false
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_8mwk2")
+text = " dapibus neque congue. Integer vulputate malesuada, sollicitudin diam. Pellentesque ac augue tellus. In ut sollicitudin velit.
+
+Praesent mollis metus sit "
+fit_content = false
+scroll_active = true
+
+[connection signal="gui_input" from="HUD" to="." method="_on_balloon_gui_input"]
+[connection signal="response_selected" from="HUD/Box/PanelContainer/MarginContainer/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]
