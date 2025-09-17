@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="PlayerDataResource" load_steps=2 format=3 uid="uid://klo6kxcn6a3u"]
+
+[ext_resource type="Script" uid="uid://fq7rou07qrcr" path="res://savedata/player_data_resource.gd" id="1_lxwdu"]
+
+[resource]
+script = ExtResource("1_lxwdu")
+human = "Pera"
+lv = 20
+max_health = 92
+items = Array[String](["Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 5", "Item 5", "Item 5"])
+weapon = "Real Knife"
+armor = ""
+metadata/_custom_type_script = "uid://fq7rou07qrcr"

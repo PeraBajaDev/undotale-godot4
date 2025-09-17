@@ -11,23 +11,22 @@ signal hitted
 
 
 func _ready() -> void:
-	self.body_entered.connect(on_body_entered)
-	health_component.died.connect(queue_free)
+	self.area_entered.connect(on_area_entered)
 	if not health_component:
 		push_warning("Falta asignar nodo healthComponent")
 	if not invencibility_timer:
 		push_warning("Falta asignar nodo invencibilityTimer")
 
 
-func on_body_entered(body: Node2D) -> void:
-	if body is HitBoxComponent:
-		hurt(body as HitBoxComponent)
+func on_area_entered(area: Area2D) -> void:
+	if area is HitBoxComponent:
+		hurt(area as HitBoxComponent)
 
 
 func hurt(hit_box: HitBoxComponent) -> void:
+	print(invencibility_timer.is_stopped())
 	if not invencibility_timer.is_stopped():
 		return
-
 	hitted.emit()
 	health_component.harm(hit_box.damage)
 	invencibility_timer.start(invincibility_time)

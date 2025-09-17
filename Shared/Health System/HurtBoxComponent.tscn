@@ -6,3 +6,5 @@
 script = ExtResource("1_n8uv7")
 
 [node name="InvencibilityTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
