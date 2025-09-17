@@ -1,8 +1,8 @@
 [gd_scene load_steps=41 format=4 uid="uid://ddahfs3p8gwj7"]
 
 [ext_resource type="Script" uid="uid://c5tmjeamyegil" path="res://BattleEngine/BattleEngine.gd" id="1"]
-[ext_resource type="Resource" uid="uid://dmjk35pd7cfrk" path="res://Dialogs/papyrus_box_dialogs.dialogue" id="2_00jd2"]
-[ext_resource type="Resource" uid="uid://c321gtwlbhoyv" path="res://Dialogs/action_dialogs.dialogue" id="3_00jd2"]
+[ext_resource type="Resource" uid="uid://dmjk35pd7cfrk" path="res://Dialogues/papyrus_box_dialogs.dialogue" id="2_00jd2"]
+[ext_resource type="Resource" uid="uid://c321gtwlbhoyv" path="res://Dialogues/action_dialogs.dialogue" id="3_00jd2"]
 [ext_resource type="Script" uid="uid://nflrlbvf4aef" path="res://BattleEngine/hud_display_player_data.gd" id="4_lpah7"]
 [ext_resource type="Script" uid="uid://chg68pj8regfi" path="res://BattleEngine/progress_player_health_bar.gd" id="6_ud8yr"]
 [ext_resource type="Resource" uid="uid://klo6kxcn6a3u" path="res://savedata/PlayerData1.tres" id="7_qm47i"]
@@ -17,7 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://d1nh0b04xs23c" path="res://Enemies/Revenge Papyrus/Papyrus.tscn" id="15"]
 [ext_resource type="Texture2D" uid="uid://dth1yvemey15b" path="res://UI Buttons/Sprites/spr_mercy1.png" id="15_lxmmi"]
 [ext_resource type="Texture2D" uid="uid://dupa1ccsl1fq0" path="res://UI Buttons/Sprites/spr_fight1.png" id="15_x8noy"]
-[ext_resource type="Script" uid="uid://ppkukbubennd" path="res://UI Buttons/Scripts/action_button.gd" id="16_ft4sq"]
+[ext_resource type="Script" uid="uid://cfwlkofbfa1bu" path="res://UI Buttons/Scripts/act_button.gd" id="16_lpah7"]
 [ext_resource type="Script" uid="uid://fq7rou07qrcr" path="res://savedata/player_data_resource.gd" id="16_njc4x"]
 [ext_resource type="Script" uid="uid://bcvihsbfg7p26" path="res://UI Buttons/Scripts/mercy_button.gd" id="16_x8noy"]
 [ext_resource type="AudioStream" uid="uid://d2qf4pqm1oufh" path="res://BattleEngine/Music/SWRevenge_-_MEGALOVANIA.mp3" id="17"]
@@ -241,7 +241,9 @@ attack = 10
 defense = 30
 actions_necessary_to_spare = 5
 actings = Dictionary[String, String]({
-"Check": "Is The great papyrus"
+"Check": "Is The great papyrus",
+"Sans": "Human, I remember your [color=red]GENOCIDES[/color]",
+"doble frase": "nyeh he he he!!! \\nspaghetti"
 })
 metadata/_custom_type_script = "uid://d3wammvht5w73"
 
@@ -383,7 +385,7 @@ script = ExtResource("9_ft4sq")
 enemies = NodePath("../../../../../Enemies")
 action_name = "FIGHT"
 
-[node name="ActButton" type="TextureButton" parent="HUD/MarginContainer/VBoxContainer/ActionButtons"]
+[node name="ActButton" type="TextureButton" parent="HUD/MarginContainer/VBoxContainer/ActionButtons" node_paths=PackedStringArray("enemies")]
 layout_mode = 2
 focus_neighbor_left = NodePath("../FightButton")
 focus_neighbor_right = NodePath("../ItemButton")
@@ -391,8 +393,8 @@ mouse_filter = 2
 button_mask = 0
 texture_normal = ExtResource("17_njc4x")
 texture_focused = ExtResource("18_2nwca")
-script = ExtResource("16_ft4sq")
-action_name = "ACT"
+script = ExtResource("16_lpah7")
+enemies = NodePath("../../../../../Enemies")
 
 [node name="ItemButton" type="TextureButton" parent="HUD/MarginContainer/VBoxContainer/ActionButtons"]
 layout_mode = 2
@@ -419,7 +421,7 @@ position = Vector2(1, 0)
 script = ExtResource("10")
 
 [node name="Papyrus" parent="Enemies" instance=ExtResource("15")]
-position = Vector2(316.967, 123.659)
+position = Vector2(318.967, 123.659)
 enemy_resource = SubResource("Resource_x8noy")
 
 [node name="Papyrus2" parent="Enemies" instance=ExtResource("15")]

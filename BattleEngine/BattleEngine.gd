@@ -36,7 +36,7 @@ func players_turn() -> void:
 func enemies_turn() -> void:
 	soul.can_move = true
 	BattleManager.enemy_turn_started.emit()
-	await get_tree().create_timer(2).timeout
+
 	BattleManager.enemy_turn_ended.emit()
 
 

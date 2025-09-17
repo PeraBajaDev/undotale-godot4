@@ -3,10 +3,8 @@
 ## A [Container] for dialogue responses provided by [b]Dialogue Manager[/b].
 class_name DialogueResponsesMenu extends Container
 
-
 ## Emitted when a response is selected.
 signal response_selected(response)
-
 
 ## Optionally specify a control to duplicate for each response
 @export var response_template: Control
@@ -26,7 +24,8 @@ var responses: Array = []:
 
 		# Remove any current items
 		for item in get_children():
-			if item == response_template: continue
+			if item == response_template:
+				continue
 
 			remove_child(item)
 			item.queue_free()
@@ -34,11 +33,14 @@ var responses: Array = []:
 		# Add new items
 		if responses.size() > 0:
 			for response in responses:
-				if hide_failed_responses and not response.is_allowed: continue
+				if hide_failed_responses and not response.is_allowed:
+					continue
 
 				var item: Control
 				if is_instance_valid(response_template):
-					item = response_template.duplicate(DUPLICATE_GROUPS | DUPLICATE_SCRIPTS | DUPLICATE_SIGNALS)
+					item = response_template.duplicate(
+						DUPLICATE_GROUPS | DUPLICATE_SCRIPTS | DUPLICATE_SIGNALS
+					)
 					item.show()
 				else:
 					item = Button.new()
@@ -62,11 +64,12 @@ var responses: Array = []:
 
 
 func _ready() -> void:
-	visibility_changed.connect(func():
-		if visible and get_menu_items().size() > 0:
-			var first_item: Control = get_menu_items()[0]
-			if first_item.is_inside_tree():
-				first_item.grab_focus()
+	visibility_changed.connect(
+		func():
+			if visible and get_menu_items().size() > 0:
+				var first_item: Control = get_menu_items()[0]
+				if first_item.is_inside_tree():
+					first_item.grab_focus()
 	)
 
 	if is_instance_valid(response_template):
@@ -77,8 +80,10 @@ func _ready() -> void:
 func get_menu_items() -> Array:
 	var items: Array = []
 	for child in get_children():
-		if not child.visible: continue
-		if "Disallowed" in child.name: continue
+		if not child.visible:
+			continue
+		if "Disallowed" in child.name:
+			continue
 		items.append(child)
 
 	return items
@@ -128,20 +133,28 @@ func _configure_focus() -> void:
 
 
 func _on_response_mouse_entered(item: Control) -> void:
-	if "Disallowed" in item.name: return
+	if "Disallowed" in item.name:
+		return
 
 	item.grab_focus()
 
 
 func _on_response_gui_input(event: InputEvent, item: Control, response) -> void:
-	if "Disallowed" in item.name: return
+	if "Disallowed" in item.name:
+		return
 
-	if event is InputEventMouseButton and event.is_pressed() and event.button_index == MOUSE_BUTTON_LEFT:
+	if (
+		event is InputEventMouseButton
+		and event.is_pressed()
+		and event.button_index == MOUSE_BUTTON_LEFT
+	):
 		get_viewport().set_input_as_handled()
 		response_selected.emit(response)
-	elif event.is_action_pressed(&"ui_accept" if next_action.is_empty() else next_action) and item in get_menu_items():
+	elif (
+		event.is_action_pressed(&"ui_accept" if next_action.is_empty() else next_action)
+		and item in get_menu_items()
+	):
 		get_viewport().set_input_as_handled()
 		response_selected.emit(response)
-
 
 #endregion

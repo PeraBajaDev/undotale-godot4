@@ -47,8 +47,16 @@ func shake(amount: float) -> void:
 
 
 func acting() -> void:
-	#Custom behaviour!
 	pass
+
+
+func act() -> void:
+	var acts: Array[String] = enemy_resource.actings.keys()
+	var selected_act: String = await BattleManager.display_options(acts)
+	var text_reaction: String = enemy_resource.actings[selected_act]
+	var dialogue_resource := DialogueManager.create_resource_from_text(text_reaction)
+	var balloon: BoxDialogue = DialogueManager.show_dialogue_balloon(dialogue_resource)
+	await get_tree().create_timer(1).timeout
 
 
 func bubble(line: String) -> void:

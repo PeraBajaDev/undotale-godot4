@@ -1,0 +1,16 @@
+[remap]
+
+importer="dialogue_manager"
+importer_version=15
+type="Resource"
+uid="uid://dmjk35pd7cfrk"
+path="res://.godot/imported/papyrus_box_dialogs.dialogue-7c12d2bc0875ddce5ab05913f24e3ab5.tres"
+
+[deps]
+
+source_file="res://Dialogues/papyrus_box_dialogs.dialogue"
+dest_files=["res://.godot/imported/papyrus_box_dialogs.dialogue-7c12d2bc0875ddce5ab05913f24e3ab5.tres"]
+
+[params]
+
+defaults=true

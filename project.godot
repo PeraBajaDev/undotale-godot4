@@ -132,7 +132,7 @@ ui_end={
 
 [internationalization]
 
-locale/translations_pot_files=PackedStringArray("res://Dialogs/action_dialogs.dialogue", "res://Dialogs/papyrus_box_dialogs.dialogue")
+locale/translations_pot_files=PackedStringArray("res://Dialogues/action_dialogs.dialogue", "res://Dialogues/papyrus_box_dialogs.dialogue")
 
 [layer_names]
 
