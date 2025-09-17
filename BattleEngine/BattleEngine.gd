@@ -2,6 +2,8 @@ class_name BattleEngine
 extends Node2D
 
 signal shake_camera
+@export var dialogue_resource: DialogueResource
+@export var enemies_options: DialogueResource
 
 var action: String
 @onready var Attacker: PackedScene = preload("res://BattleEngine/DamageMeter/DamageMeter.tscn")
@@ -9,10 +11,7 @@ var action: String
 @onready var enemies: Enemies = $Enemies
 @onready var soul: SoulController = $Soul
 @onready var camera: Camera2D = $Camera3D
-@onready var item_selector: ItemSelector = $ItemSelector
 @onready var music: AudioStreamPlayer = $Music
-@export var dialogue_resource: DialogueResource
-@export var enemies_options: DialogueResource
 
 @onready var action_buttons: ActionButtons = %ActionButtons
 
