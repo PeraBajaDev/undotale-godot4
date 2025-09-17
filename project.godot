@@ -23,6 +23,7 @@ buses/default_bus_layout="uid://buarrpn3nkuyd"
 
 DialogueManager="*res://addons/dialogue_manager/dialogue_manager.gd"
 BattleManager="*res://Autoloads/BattleManager.gd"
+GlobalPlayerHealthComponent="*res://Autoloads/GlobalPlayerHealthComponent.gd"
 
 [debug]
 
