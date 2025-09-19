@@ -35,6 +35,7 @@ var dialogue_line: DialogueLine:
 		else:
 			# The dialogue has finished so close the balloon
 			balloon.hide()
+			balloon.queue_free()
 	get:
 		return dialogue_line
 
@@ -72,6 +73,8 @@ func _ready() -> void:
 func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
 	get_viewport().set_input_as_handled()
+	if _event.is_action_pressed(next_action):
+		response_selected.emit()
 
 
 func _notification(what: int) -> void:

@@ -26,17 +26,22 @@ func _ready() -> void:
 
 func players_turn() -> void:
 	soul.can_move = false
+	soul.hide()
 	BattleManager.player_turn_started.emit()
-	DialogueManager.show_dialogue_balloon(dialogue_resource)
+	var balloon := DialogueManager.show_dialogue_balloon(dialogue_resource)
 	await action_buttons.action_finished
+
 	action_buttons.release_focus_buttons()
 	BattleManager.player_turn_ended.emit()
+	balloon.queue_free()
 
 
 func enemies_turn() -> void:
 	soul.can_move = true
+	soul.show()
 	BattleManager.enemy_turn_started.emit()
-
+	enemies.start_attack()
+	await enemies.enemies_actions_ended
 	BattleManager.enemy_turn_ended.emit()
 
 

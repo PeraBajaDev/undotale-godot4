@@ -436,7 +436,8 @@ enemy_resource = SubResource("Resource_x8noy")
 
 [node name="Soul" parent="." instance=ExtResource("14")]
 process_mode = 1
-position = Vector2(62.7556, 208.974)
+z_index = 2
+position = Vector2(73.7556, 209.974)
 
 [node name="Select" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

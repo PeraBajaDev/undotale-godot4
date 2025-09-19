@@ -8,14 +8,19 @@ signal enemies_actions_ended
 
 func _ready() -> void:
 	enemies.assign(get_children())
-	for enemy in enemies:
-		await enemy.action_ended
-	enemies_actions_ended.emit()
 
 
 func spare_all() -> void:
 	for enemy in enemies:
 		enemy.spare()
+
+
+func start_attack() -> void:
+	for enemy in enemies:
+		enemy.acting()
+	for enemy in enemies:
+		await enemy.action_ended
+	enemies_actions_ended.emit()
 
 
 func get_node_names() -> Array[String]:
