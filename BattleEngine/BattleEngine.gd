@@ -12,7 +12,7 @@ var action: String
 @onready var soul: SoulController = $Soul
 @onready var camera: Camera2D = $Camera3D
 @onready var music: AudioStreamPlayer = $Music
-
+@onready var box_fight: BoxFight = $Box
 @onready var action_buttons: ActionButtons = %ActionButtons
 
 
@@ -26,6 +26,7 @@ func _ready() -> void:
 
 func players_turn() -> void:
 	soul.can_move = false
+	box_fight.hide()
 	soul.hide()
 	BattleManager.player_turn_started.emit()
 	var balloon := DialogueManager.show_dialogue_balloon(dialogue_resource)
@@ -38,7 +39,9 @@ func players_turn() -> void:
 
 func enemies_turn() -> void:
 	soul.can_move = true
+	box_fight.show()
 	soul.show()
+	soul.position = box_fight.position
 	BattleManager.enemy_turn_started.emit()
 	enemies.start_attack()
 	await enemies.enemies_actions_ended

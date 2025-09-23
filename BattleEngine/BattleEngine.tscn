@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=4 uid="uid://ddahfs3p8gwj7"]
+[gd_scene load_steps=42 format=4 uid="uid://ddahfs3p8gwj7"]
 
 [ext_resource type="Script" uid="uid://c5tmjeamyegil" path="res://BattleEngine/BattleEngine.gd" id="1"]
 [ext_resource type="Resource" uid="uid://dmjk35pd7cfrk" path="res://Dialogues/papyrus_box_dialogs.dialogue" id="2_00jd2"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://cwmsu7ekgpy7q" path="res://UI Buttons/Sprites/spr_mercy0.png" id="21_00jd2"]
 [ext_resource type="Script" uid="uid://cyawxtgtfkbum" path="res://BattleEngine/player_stats.gd" id="27_6agev"]
 [ext_resource type="Script" uid="uid://dlpctstwliv78" path="res://Shared/Health System/hit_box_component.gd" id="28_6agev"]
+[ext_resource type="PackedScene" uid="uid://dwvcabx3gcvki" path="res://box_fight.tscn" id="33_upjha"]
 
 [sub_resource type="Image" id="Image_15vs5"]
 data = {
@@ -468,3 +469,6 @@ metadata/_custom_type_script = "uid://dlpctstwliv78"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComponent"]
 position = Vector2(27.5, 26)
 shape = SubResource("RectangleShape2D_ud8yr")
+
+[node name="Box" parent="." instance=ExtResource("33_upjha")]
+position = Vector2(237, 229)

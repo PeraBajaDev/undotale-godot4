@@ -3,15 +3,15 @@ extends Node2D
 
 signal action_ended
 signal spared
+@export var enemy_resource: EnemyResource
 var is_spared := false
 
-@export var enemy_resource: EnemyResource
-@onready var animations: AnimationPlayer = $Animations
-@onready var sprite: Node2D = $Sprite2D
-@onready var health_component: HealthComponent = $HealthComponent
 var spare_counter: int:
 	set(value):
 		spare_counter = value if value >= 0 else 0
+@onready var animations: AnimationPlayer = $Animations
+@onready var sprite: Node2D = $Sprite2D
+@onready var health_component: HealthComponent = $HealthComponent
 
 
 func _ready() -> void:
@@ -48,10 +48,9 @@ func shake(amount: float) -> void:
 
 func acting() -> void:
 	print("empezando accion de", name)
-	await get_tree().create_timer(4).timeout
+	await get_tree().create_timer(400).timeout
 	print("la accion de", name, "terminó")
 	action_ended.emit()
-	pass
 
 
 func act() -> void:
