@@ -2,12 +2,13 @@ class_name BoxDialogue
 extends CanvasLayer
 ## A basic dialogue balloon for use with Dialogue Manager.
 signal response_selected
+signal next_dialog
 ## The action to use for advancing the dialogue
 @export var next_action: StringName = &"ui_accept"
 
 ## The action to use to skip typing the dialogue
 @export var skip_action: StringName = &"ui_cancel"
-
+@onready var select_sound: AudioStreamPlayer = %Select
 ## The dialogue resource
 var resource: DialogueResource
 
@@ -65,7 +66,12 @@ func _ready() -> void:
 	# If the responses menu doesn't have a next action set, use this one
 	if responses_menu.next_action.is_empty():
 		responses_menu.next_action = next_action
-
+	response_selected.connect(
+		func() -> void:
+			if select_sound:
+				select_sound.play()
+				select_sound.reparent(get_parent())
+	)
 	mutation_cooldown.timeout.connect(_on_mutation_cooldown_timeout)
 	add_child(mutation_cooldown)
 
@@ -74,7 +80,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 	# Only the balloon is allowed to handle input while it's showing
 	get_viewport().set_input_as_handled()
 	if _event.is_action_pressed(next_action):
-		response_selected.emit()
+		next_dialog.emit()
 
 
 func _notification(what: int) -> void:

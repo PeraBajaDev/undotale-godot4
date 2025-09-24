@@ -12,6 +12,7 @@ func _ready() -> void:
 	for button in buttons:
 		button.pressed.connect(action_button_pressed.emit)
 		button.action_finished.connect(action_finished.emit)
+	await get_tree().create_timer(1).timeout
 	focus_button()
 
 

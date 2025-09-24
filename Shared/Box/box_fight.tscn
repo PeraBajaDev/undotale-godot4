@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://dwvcabx3gcvki"]
 
-[ext_resource type="Script" uid="uid://buhcjagpw4t2p" path="res://draw_box_fight.gd" id="1_js35m"]
+[ext_resource type="Script" uid="uid://buhcjagpw4t2p" path="res://Shared/Box/draw_box_fight.gd" id="1_js35m"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_js35m"]
 

@@ -1,11 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://dpex4p3mbd85q"]
+[gd_scene load_steps=18 format=3 uid="uid://dpex4p3mbd85q"]
 
 [ext_resource type="Script" uid="uid://cjexfqti7orda" path="res://BattleEngine/Bubble/balloon.gd" id="1_36de5"]
 [ext_resource type="Theme" uid="uid://dumd7k330kv0k" path="res://GeneralResources/hud_theme.tres" id="2_8mwk2"]
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_a8ve6"]
 [ext_resource type="Script" uid="uid://bb52rsfwhkxbn" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="3_72ixx"]
-[ext_resource type="Texture2D" uid="uid://c0cwew8jcvo2i" path="res://Shared/Soul/red_soul.png" id="4_h3rbl"]
-[ext_resource type="Script" uid="uid://jwtdfmx03ddy" path="res://BattleEngine/Bubble/teleport_soul_on_focus_entered.gd" id="5_nm2ho"]
+[ext_resource type="Script" uid="uid://jwtdfmx03ddy" path="res://BattleEngine/Bubble/teleport_soul_on_focus_entered.gd" id="4_obl46"]
+[ext_resource type="Texture2D" uid="uid://c0cwew8jcvo2i" path="res://Shared/Soul/red_soul.png" id="5_e8n3e"]
+[ext_resource type="AudioStream" uid="uid://b8p6hbq5k4sns" path="res://UI Buttons/Sounds/snd_select.wav" id="6_45w1p"]
+[ext_resource type="AudioStream" uid="uid://c5vb3l77c2i6f" path="res://UI Buttons/Sounds/snd_squeak.wav" id="6_m3pbm"]
+[ext_resource type="Script" uid="uid://bebnpchbg46bo" path="res://UI Buttons/Scripts/play_sound_on_button_focus.gd" id="7_obl46"]
+[ext_resource type="Script" uid="uid://x48reh0cgwrq" path="res://BattleEngine/Bubble/queue_free_on_sound_finished.gd" id="9_e8n3e"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_spyqn"]
 bg_color = Color(0, 0, 0, 1)
@@ -75,7 +79,7 @@ border_width_bottom = 7
 border_color = Color(1, 1, 1, 1)
 corner_detail = 10
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nm2ho"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw053"]
 region = Rect2(0, 0, 16, 16)
 margin = Rect2(16, 16, 0, 0)
 filter_clip = true
@@ -138,11 +142,15 @@ size_flags_vertical = 4
 mouse_filter = 2
 theme = ExtResource("2_8mwk2")
 text = " * Response example"
-icon = SubResource("AtlasTexture_nm2ho")
+icon = SubResource("AtlasTexture_yw053")
 alignment = 0
-script = ExtResource("5_nm2ho")
-soul_icon = ExtResource("4_h3rbl")
-empty_icon = SubResource("AtlasTexture_nm2ho")
+script = ExtResource("4_obl46")
+soul_icon = ExtResource("5_e8n3e")
+empty_icon = SubResource("AtlasTexture_yw053")
+
+[node name="Squeak" type="AudioStreamPlayer" parent="HUD/Box/PanelContainer/MarginContainer/ResponsesMenu/ResponseExample"]
+stream = ExtResource("6_m3pbm")
+script = ExtResource("7_obl46")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="HUD/Box/PanelContainer/MarginContainer"]
 layout_mode = 2
@@ -176,6 +184,12 @@ text = " dapibus neque congue. Integer vulputate malesuada, sollicitudin diam. P
 Praesent mollis metus sit "
 fit_content = false
 scroll_active = true
+
+[node name="Select" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("6_45w1p")
+bus = &"SFX"
+script = ExtResource("9_e8n3e")
 
 [connection signal="gui_input" from="HUD" to="." method="_on_balloon_gui_input"]
 [connection signal="response_selected" from="HUD/Box/PanelContainer/MarginContainer/ResponsesMenu" to="." method="_on_responses_menu_response_selected"]

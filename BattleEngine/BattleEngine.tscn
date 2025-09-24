@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=4 uid="uid://ddahfs3p8gwj7"]
+[gd_scene load_steps=44 format=4 uid="uid://ddahfs3p8gwj7"]
 
 [ext_resource type="Script" uid="uid://c5tmjeamyegil" path="res://BattleEngine/BattleEngine.gd" id="1"]
 [ext_resource type="Resource" uid="uid://dmjk35pd7cfrk" path="res://Dialogues/papyrus_box_dialogs.dialogue" id="2_00jd2"]
@@ -15,14 +15,16 @@
 [ext_resource type="PackedScene" uid="uid://b4g7m7v1x2n7a" path="res://Shared/Soul/Soul.tscn" id="14"]
 [ext_resource type="Texture2D" uid="uid://dq1jc8gj6t6ny" path="res://UI Buttons/Sprites/spr_fight0.png" id="14_y2ppc"]
 [ext_resource type="PackedScene" uid="uid://d1nh0b04xs23c" path="res://Enemies/Revenge Papyrus/Papyrus.tscn" id="15"]
+[ext_resource type="Script" uid="uid://ctr4txukqpbp7" path="res://UI Buttons/Scripts/play_sound_on_button_pressed.gd" id="15_dta04"]
 [ext_resource type="Texture2D" uid="uid://dth1yvemey15b" path="res://UI Buttons/Sprites/spr_mercy1.png" id="15_lxmmi"]
 [ext_resource type="Texture2D" uid="uid://dupa1ccsl1fq0" path="res://UI Buttons/Sprites/spr_fight1.png" id="15_x8noy"]
+[ext_resource type="AudioStream" uid="uid://c5vb3l77c2i6f" path="res://UI Buttons/Sounds/snd_squeak.wav" id="16_0m5dv"]
 [ext_resource type="Script" uid="uid://cfwlkofbfa1bu" path="res://UI Buttons/Scripts/act_button.gd" id="16_lpah7"]
 [ext_resource type="Script" uid="uid://fq7rou07qrcr" path="res://savedata/player_data_resource.gd" id="16_njc4x"]
 [ext_resource type="Script" uid="uid://bcvihsbfg7p26" path="res://UI Buttons/Scripts/mercy_button.gd" id="16_x8noy"]
 [ext_resource type="AudioStream" uid="uid://d2qf4pqm1oufh" path="res://BattleEngine/Music/SWRevenge_-_MEGALOVANIA.mp3" id="17"]
+[ext_resource type="Script" uid="uid://bebnpchbg46bo" path="res://UI Buttons/Scripts/play_sound_on_button_focus.gd" id="17_mx00m"]
 [ext_resource type="Texture2D" uid="uid://mreyladyrnnb" path="res://UI Buttons/Sprites/spr_act0.png" id="17_njc4x"]
-[ext_resource type="AudioStream" uid="uid://c5vb3l77c2i6f" path="res://UI Buttons/Sounds/snd_squeak.wav" id="18"]
 [ext_resource type="Texture2D" uid="uid://be0foy65cab5b" path="res://UI Buttons/Sprites/spr_act1.png" id="18_2nwca"]
 [ext_resource type="Script" uid="uid://d3wammvht5w73" path="res://Enemies/Scripts/EnemyResource.gd" id="18_y2ppc"]
 [ext_resource type="AudioStream" uid="uid://b8p6hbq5k4sns" path="res://UI Buttons/Sounds/snd_select.wav" id="19"]
@@ -32,7 +34,7 @@
 [ext_resource type="Texture2D" uid="uid://cwmsu7ekgpy7q" path="res://UI Buttons/Sprites/spr_mercy0.png" id="21_00jd2"]
 [ext_resource type="Script" uid="uid://cyawxtgtfkbum" path="res://BattleEngine/player_stats.gd" id="27_6agev"]
 [ext_resource type="Script" uid="uid://dlpctstwliv78" path="res://Shared/Health System/hit_box_component.gd" id="28_6agev"]
-[ext_resource type="PackedScene" uid="uid://dwvcabx3gcvki" path="res://box_fight.tscn" id="33_upjha"]
+[ext_resource type="PackedScene" uid="uid://dwvcabx3gcvki" path="res://Shared/Box/box_fight.tscn" id="33_upjha"]
 
 [sub_resource type="Image" id="Image_15vs5"]
 data = {
@@ -386,6 +388,16 @@ script = ExtResource("9_ft4sq")
 enemies = NodePath("../../../../../Enemies")
 action_name = "FIGHT"
 
+[node name="Select" type="AudioStreamPlayer" parent="HUD/MarginContainer/VBoxContainer/ActionButtons/FightButton"]
+stream = ExtResource("19")
+bus = &"SFX"
+script = ExtResource("15_dta04")
+
+[node name="Squeak" type="AudioStreamPlayer" parent="HUD/MarginContainer/VBoxContainer/ActionButtons/FightButton"]
+stream = ExtResource("16_0m5dv")
+bus = &"SFX"
+script = ExtResource("17_mx00m")
+
 [node name="ActButton" type="TextureButton" parent="HUD/MarginContainer/VBoxContainer/ActionButtons" node_paths=PackedStringArray("enemies")]
 layout_mode = 2
 focus_neighbor_left = NodePath("../FightButton")
@@ -397,6 +409,16 @@ texture_focused = ExtResource("18_2nwca")
 script = ExtResource("16_lpah7")
 enemies = NodePath("../../../../../Enemies")
 
+[node name="Select" type="AudioStreamPlayer" parent="HUD/MarginContainer/VBoxContainer/ActionButtons/ActButton"]
+stream = ExtResource("19")
+bus = &"SFX"
+script = ExtResource("15_dta04")
+
+[node name="Squeak" type="AudioStreamPlayer" parent="HUD/MarginContainer/VBoxContainer/ActionButtons/ActButton"]
+stream = ExtResource("16_0m5dv")
+bus = &"SFX"
+script = ExtResource("17_mx00m")
+
 [node name="ItemButton" type="TextureButton" parent="HUD/MarginContainer/VBoxContainer/ActionButtons"]
 layout_mode = 2
 focus_neighbor_left = NodePath("../ActButton")
@@ -407,6 +429,16 @@ texture_focused = ExtResource("20_ud8yr")
 script = ExtResource("20")
 player_data = SubResource("Resource_2nwca")
 
+[node name="Select" type="AudioStreamPlayer" parent="HUD/MarginContainer/VBoxContainer/ActionButtons/ItemButton"]
+stream = ExtResource("19")
+bus = &"SFX"
+script = ExtResource("15_dta04")
+
+[node name="Squeak" type="AudioStreamPlayer" parent="HUD/MarginContainer/VBoxContainer/ActionButtons/ItemButton"]
+stream = ExtResource("16_0m5dv")
+bus = &"SFX"
+script = ExtResource("17_mx00m")
+
 [node name="MercyButton" type="TextureButton" parent="HUD/MarginContainer/VBoxContainer/ActionButtons" node_paths=PackedStringArray("enemies")]
 layout_mode = 2
 focus_neighbor_left = NodePath("../ItemButton")
@@ -416,6 +448,16 @@ texture_normal = ExtResource("21_00jd2")
 texture_focused = ExtResource("15_lxmmi")
 script = ExtResource("16_x8noy")
 enemies = NodePath("../../../../../Enemies")
+
+[node name="Select" type="AudioStreamPlayer" parent="HUD/MarginContainer/VBoxContainer/ActionButtons/MercyButton"]
+stream = ExtResource("19")
+bus = &"SFX"
+script = ExtResource("15_dta04")
+
+[node name="Squeak" type="AudioStreamPlayer" parent="HUD/MarginContainer/VBoxContainer/ActionButtons/MercyButton"]
+stream = ExtResource("16_0m5dv")
+bus = &"SFX"
+script = ExtResource("17_mx00m")
 
 [node name="Enemies" type="Node2D" parent="."]
 position = Vector2(1, 0)
@@ -439,14 +481,6 @@ enemy_resource = SubResource("Resource_x8noy")
 process_mode = 1
 z_index = 2
 position = Vector2(73.7556, 209.974)
-
-[node name="Select" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
-stream = ExtResource("19")
-
-[node name="Squeak" type="AudioStreamPlayer" parent="."]
-unique_name_in_owner = true
-stream = ExtResource("18")
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("17")

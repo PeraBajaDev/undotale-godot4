@@ -39,7 +39,12 @@ var responses: Array = []:
 				var item: Control
 				if is_instance_valid(response_template):
 					item = response_template.duplicate(
-						DUPLICATE_GROUPS | DUPLICATE_SCRIPTS | DUPLICATE_SIGNALS
+						(
+							DUPLICATE_GROUPS
+							| DUPLICATE_SCRIPTS
+							| DUPLICATE_SIGNALS
+							| DUPLICATE_USE_INSTANTIATION
+						)
 					)
 					item.show()
 				else:
@@ -71,7 +76,6 @@ func _ready() -> void:
 				if first_item.is_inside_tree():
 					first_item.grab_focus()
 	)
-
 	if is_instance_valid(response_template):
 		response_template.hide()
 

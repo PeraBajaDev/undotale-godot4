@@ -48,7 +48,7 @@ func shake(amount: float) -> void:
 
 func acting() -> void:
 	print("empezando accion de", name)
-	await get_tree().create_timer(400).timeout
+	await get_tree().create_timer(1).timeout
 	print("la accion de", name, "terminó")
 	action_ended.emit()
 
@@ -59,5 +59,5 @@ func act() -> void:
 	var text_reaction: String = enemy_resource.actings[selected_act]
 	var dialogue_resource := DialogueManager.create_resource_from_text(text_reaction)
 	var balloon: BoxDialogue = DialogueManager.show_dialogue_balloon(dialogue_resource)
-	await balloon.response_selected
+	await balloon.next_dialog
 	balloon.queue_free()
