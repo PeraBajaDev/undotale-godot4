@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="UNDOTALE"
-run/main_scene="res://BattleEngine/BattleEngine.tscn"
+run/main_scene="res://BattleEngine/Scenes/BattleEngine.tscn"
 config/features=PackedStringArray("4.4")
 config/icon="res://GeneralResources/icon.png"
 

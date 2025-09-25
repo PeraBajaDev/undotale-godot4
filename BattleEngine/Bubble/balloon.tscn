@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ckvgyvclnwggo" path="res://addons/dialogue_manager/dialogue_label.tscn" id="2_a8ve6"]
 [ext_resource type="Script" uid="uid://bb52rsfwhkxbn" path="res://addons/dialogue_manager/dialogue_responses_menu.gd" id="3_72ixx"]
 [ext_resource type="Script" uid="uid://jwtdfmx03ddy" path="res://BattleEngine/Bubble/teleport_soul_on_focus_entered.gd" id="4_obl46"]
-[ext_resource type="Texture2D" uid="uid://c0cwew8jcvo2i" path="res://Shared/Soul/red_soul.png" id="5_e8n3e"]
+[ext_resource type="Texture2D" uid="uid://c0cwew8jcvo2i" path="res://Soul/Sprites/red_soul.png" id="5_e8n3e"]
 [ext_resource type="AudioStream" uid="uid://b8p6hbq5k4sns" path="res://UI Buttons/Sounds/snd_select.wav" id="6_45w1p"]
 [ext_resource type="AudioStream" uid="uid://c5vb3l77c2i6f" path="res://UI Buttons/Sounds/snd_squeak.wav" id="6_m3pbm"]
 [ext_resource type="Script" uid="uid://bebnpchbg46bo" path="res://UI Buttons/Scripts/play_sound_on_button_focus.gd" id="7_obl46"]

@@ -1,9 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://dfw2ivtbr6sxu"]
-
-[ext_resource type="Script" uid="uid://uuqkerhttgeq" path="res://Shared/Soul/Ghost.gd" id="1"]
-[ext_resource type="Texture2D" uid="uid://c78atbwwrod36" path="res://Shared/Soul/soul.png" id="2"]
-
-[node name="Ghost" type="Sprite2D"]
-position = Vector2(3, 0)
-texture = ExtResource("2")
-script = ExtResource("1")

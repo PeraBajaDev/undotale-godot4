@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://dwvcabx3gcvki"]
+
+[ext_resource type="Script" uid="uid://buhcjagpw4t2p" path="res://Box/draw_box_fight.gd" id="1_js35m"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_js35m"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3w0o8"]
+distance = -3.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_swanl"]
+distance = -1.0
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_l485p"]
+normal = Vector2(6.6638e-06, 1)
+distance = -1.0
+
+[node name="Box" type="Node2D"]
+script = ExtResource("1_js35m")
+
+[node name="Walls" type="StaticBody2D" parent="."]
+position = Vector2(2, 52)
+collision_layer = 4
+
+[node name="DownCollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(0, 5)
+shape = SubResource("WorldBoundaryShape2D_js35m")
+
+[node name="UpCollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-1, -96)
+rotation = -3.14159
+shape = SubResource("WorldBoundaryShape2D_3w0o8")
+
+[node name="LeftCollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(-46, -52)
+rotation = 1.57081
+shape = SubResource("WorldBoundaryShape2D_swanl")
+
+[node name="RightCollisionShape2D" type="CollisionShape2D" parent="Walls"]
+position = Vector2(74, -52)
+rotation = 1.57081
+shape = SubResource("WorldBoundaryShape2D_l485p")

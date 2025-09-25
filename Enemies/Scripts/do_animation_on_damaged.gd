@@ -1,8 +1,8 @@
 extends Node
 
 @onready var health_component: HealthComponent = get_parent()
-@onready var Slice: PackedScene = preload("res://BattleEngine/Weapon/Weapon.tscn")
-@onready var Damage: PackedScene = preload("res://BattleEngine/DamageMeter/Text/Damage.tscn")
+@onready var Slice: PackedScene = preload("uid://clqoaucx64jvh")
+@onready var Damage: PackedScene = preload("uid://dumsd384eias1")
 
 
 func _ready() -> void:

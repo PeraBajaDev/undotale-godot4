@@ -20,7 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://dqpi1qbc5uk7h" path="res://Enemies/Revenge Papyrus/scarf test/0.png" id="19"]
 [ext_resource type="Texture2D" uid="uid://bukq373nwk7dn" path="res://Enemies/Revenge Papyrus/scarf test/1.png" id="20"]
 [ext_resource type="Texture2D" uid="uid://day8fg3katlt7" path="res://Enemies/Revenge Papyrus/scarf test/2.png" id="21"]
-[ext_resource type="Script" uid="uid://ctmyj0dx5gdnv" path="res://Shared/Health System/health_component.gd" id="21_8wlok"]
+[ext_resource type="Script" uid="uid://ctmyj0dx5gdnv" path="res://Health System/Scripts/health_component.gd" id="21_8wlok"]
 [ext_resource type="Texture2D" uid="uid://bnk51rbepilc5" path="res://Enemies/Revenge Papyrus/scarf test/3.png" id="22"]
 [ext_resource type="Script" uid="uid://q5lled4rsobt" path="res://Enemies/Scripts/do_animation_on_damaged.gd" id="23_54xje"]
 

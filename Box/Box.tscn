@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=3 uid="uid://uhpmd8ol7v03"]
+
+[ext_resource type="Texture2D" uid="uid://boqwluiw8ebk5" path="res://Box/box.png" id="1"]
+[ext_resource type="Script" uid="uid://diqnwnjfrbtdg" path="res://Box/Box.gd" id="3"]
+
+[sub_resource type="RectangleShape2D" id="3"]
+size = Vector2(200, 2000)
+
+[node name="Box" type="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1.0
+offset_right = 905.0
+offset_bottom = 574.0
+script = ExtResource("3")
+border = 4
+
+[node name="Sprite2D" type="NinePatchRect" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(22, 22)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1")
+patch_margin_left = 5
+patch_margin_top = 5
+patch_margin_right = 5
+patch_margin_bottom = 5
+
+[node name="Box" type="Control" parent="Sprite2D"]
+anchors_preset = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Attacks" type="Node2D" parent="."]
+
+[node name="Collisions" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="Left" type="CollisionShape2D" parent="Collisions"]
+position = Vector2(-96, -90)
+shape = SubResource("3")
+
+[node name="Top" type="CollisionShape2D" parent="Collisions"]
+position = Vector2(0, -96)
+rotation = 1.5708
+shape = SubResource("3")
+
+[node name="Bottom" type="CollisionShape2D" parent="Collisions"]
+position = Vector2(0, 306)
+rotation = 1.5708
+shape = SubResource("3")
+
+[node name="Right" type="CollisionShape2D" parent="Collisions"]
+position = Vector2(438, 9)
+shape = SubResource("3")

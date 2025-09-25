@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bk4niv8jb1wi0"]
+
+[ext_resource type="Script" uid="uid://ddfnxt0rkysud" path="res://Health System/Scripts/hurt_box_component.gd" id="1_qj51x"]
+
+[node name="HurtBoxComponent" type="Area2D"]
+script = ExtResource("1_qj51x")
+
+[node name="InvencibilityTimer" type="Timer" parent="."]
+one_shot = true
+autostart = true
