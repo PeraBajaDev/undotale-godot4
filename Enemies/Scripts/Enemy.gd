@@ -48,7 +48,7 @@ func shake(amount: float) -> void:
 
 func acting() -> void:
 	print("empezando accion de", name)
-	await get_tree().create_timer(10).timeout
+	await get_tree().create_timer(13).timeout
 	print("la accion de", name, "terminó")
 	action_ended.emit()
 

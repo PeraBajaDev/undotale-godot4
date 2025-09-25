@@ -35,7 +35,7 @@ shape = SubResource("1")
 [node name="HurtBoxComponent" parent="." instance=ExtResource("4_71p6e")]
 position = Vector2(2, 0)
 script = ExtResource("4_b2efj")
-invincibility_time = 1.0
+invincibility_time = 0.3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBoxComponent"]
 shape = SubResource("2")

@@ -7,12 +7,13 @@ signal shake_camera
 
 var action: String
 @onready var Attacker: PackedScene = preload("uid://81gpq7sso7v0")
+@onready var soul_breaking_scene: PackedScene = preload("uid://cakxlhdknribv")
 
-@onready var enemies: Enemies = $Enemies
-@onready var soul: SoulController = $Soul
-@onready var camera: Camera2D = $Camera3D
-@onready var music: AudioStreamPlayer = $Music
-@onready var box_fight: BoxFight = $Box
+@onready var enemies: Enemies = %Enemies
+@onready var soul: SoulController = %Soul
+@onready var camera: Camera2D = %Camera2D
+@onready var music: AudioStreamPlayer = %Music
+@onready var box_fight: BoxFight = %Box
 @onready var action_buttons: ActionButtons = %ActionButtons
 
 
@@ -21,6 +22,7 @@ func _ready() -> void:
 	music.play(10)
 	BattleManager.player_turn_ended.connect(enemies_turn)
 	BattleManager.enemy_turn_ended.connect(players_turn)
+	GlobalPlayerHealthComponent.died.connect(_on_player_died)
 	players_turn()
 
 
@@ -31,10 +33,9 @@ func players_turn() -> void:
 	BattleManager.player_turn_started.emit()
 	var balloon := DialogueManager.show_dialogue_balloon(dialogue_resource)
 	await action_buttons.action_finished
-
+	balloon.queue_free()
 	action_buttons.release_focus_buttons()
 	BattleManager.player_turn_ended.emit()
-	balloon.queue_free()
 
 
 func enemies_turn() -> void:
@@ -65,3 +66,12 @@ func _on_shake_camera(amount := 5) -> void:
 		_on_shake_camera(amount)  # ether: idk if this is calling the signal or the action itself
 	else:
 		store_amount = 0
+
+
+func _on_player_died() -> void:
+	var canvas_soul_breaking: CanvasLayer = soul_breaking_scene.instantiate()
+	add_child(canvas_soul_breaking)
+	var soul_breaking: Node2D = canvas_soul_breaking.get_child(0)
+	soul_breaking.position = soul.position
+	get_tree().paused = true
+	BattleManager.enemy_turn_ended.disconnect(players_turn)

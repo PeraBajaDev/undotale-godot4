@@ -14,9 +14,8 @@ const BOX_OFFSET: Vector2 = Vector2.DOWN * 50
 func _ready() -> void:
 	var initial_position := global_position
 	var tween := create_tween()
-	tween.tween_property(self, "global_position", Vector2.ZERO, 6)
 	tween.tween_method(expand.bind(ExpandDirections.LEFT), 0, 1, 2)
-	tween.tween_property(self, "global_position", initial_position, 6)
+	tween.tween_property(self, "global_position", initial_position + Vector2.LEFT * 50, 6)
 	tween.tween_method(expand.bind(ExpandDirections.UP), 0, 2, 4)
 	tween.tween_method(expand.bind(ExpandDirections.RIGHT), 0, -.6, 4)
 

@@ -36,7 +36,7 @@ var dialogue_line: DialogueLine:
 		else:
 			# The dialogue has finished so close the balloon
 			balloon.hide()
-			balloon.queue_free()
+			queue_free()
 	get:
 		return dialogue_line
 
@@ -71,6 +71,7 @@ func _ready() -> void:
 			if select_sound:
 				select_sound.play()
 				select_sound.reparent(get_parent())
+				queue_free()
 	)
 	mutation_cooldown.timeout.connect(_on_mutation_cooldown_timeout)
 	add_child(mutation_cooldown)
